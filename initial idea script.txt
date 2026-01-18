@@ -104,3 +104,8 @@ surface that I want you to work on.
 look this is the data model the fetch transcript model that we're getting back. How can we just get the text from this?
 
 
+I want you to migrate this function to the get transcript and I want you to put everything into a nice YouTube. You know
+what actually how should we do it? Yeah, I want you to create put it in a scraper and I want you want you to create a YouTube scraper
+surface. So put it all nicely into a single class so we can have a nice interface to work with this.
+
+
