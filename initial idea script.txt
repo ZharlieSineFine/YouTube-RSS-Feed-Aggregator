@@ -109,3 +109,21 @@ what actually how should we do it? Yeah, I want you to create put it in a scrape
 surface. So put it all nicely into a single class so we can have a nice interface to work with this.
 
 
+Now, what I want to do in this YouTube scraper, I
+want to define a PyDantic model. Two PyDantic
+models actually. One for a channel
+video, and I'll dump the schema down
+below. and then also one for the
+transcript which is just going to
+contain a text field. But this way we
+exactly know what type of data models
+we're working with. You can just create
+the models here in this file.
+
+
+
+Look first within the OpenAI scraper use this RSS feed as an input and then analyze the structure and
+grab it in such a way and create a pyantic model around it where we can simply get a list of the articles
+published within a given time frame. Let's start there first and really do it
+clean and simple in as little code as possible.
+

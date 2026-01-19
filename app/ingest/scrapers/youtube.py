@@ -1,20 +1,19 @@
 """YouTube channel scraper for fetching videos and transcripts."""
 
+import json
 import re
 from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Optional
 
 import feedparser
+import requests
+import yt_dlp
 from pydantic import BaseModel, ConfigDict, Field
-from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound
 
-# Import IpBlocked if available (for handling IP blocking)
 try:
-    from youtube_transcript_api._errors import IpBlocked
+    from .cache import get_cached, set_cached
 except ImportError:
-    # Fallback: check exception type name dynamically
-    IpBlocked = None
+    from cache import get_cached, set_cached
 
 
 class ChannelVideo(BaseModel):
@@ -46,12 +45,12 @@ class YouTubeScraper:
         scraper = YouTubeScraper()
         videos = scraper.fetch_channel_videos("UC_x5XG1OV2P6uZZ5FSM9Ttw", hours_back=24)
         transcript = scraper.get_transcript("VIDEO_ID")
-        videos_with_transcripts = scraper.ingest_channel("CHANNEL_ID", hours_back=24)
+        videos_with_transcripts = scraper.scrape_channel("CHANNEL_ID", hours_back=24)
     """
     
     def __init__(self):
         """Initialize the YouTube scraper."""
-        self._transcript_api = YouTubeTranscriptApi()
+        pass
     
     @staticmethod
     def extract_video_id(url: str) -> Optional[str]:
@@ -109,7 +108,17 @@ class YouTubeScraper:
             List of ChannelVideo models
         """
         rss_url = self.build_rss_url(channel_id)
-        feed = feedparser.parse(rss_url)
+        
+        # Check cache first
+        cached_content = get_cached(rss_url, "xml")
+        if cached_content:
+            feed = feedparser.parse(cached_content)
+        else:
+            # Fetch and cache
+            response = requests.get(rss_url, timeout=30)
+            response.raise_for_status()
+            set_cached(rss_url, response.text, "xml")
+            feed = feedparser.parse(response.text)
         
         if feed.bozo:
             raise ValueError(f"Failed to parse RSS feed: {feed.bozo_exception}")
@@ -150,12 +159,12 @@ class YouTubeScraper:
         languages: List[str] = None
     ) -> Optional[Transcript]:
         """
-        Fetch transcript for a YouTube video.
+        Fetch transcript for a YouTube video using yt-dlp.
         
         Args:
             video_id: YouTube video ID
             languages: Preferred language codes (default: ['en']). 
-                      Falls back to available languages.
+                      Falls back to available languages or auto-generated captions.
         
         Returns:
             Transcript model with text, or None if transcript unavailable
@@ -163,64 +172,181 @@ class YouTubeScraper:
         if languages is None:
             languages = ['en']
         
-        try:
-            transcript_list = self._transcript_api.list(video_id)
-            
-            # Try to get transcript in preferred language
-            transcript = None
-            for lang in languages:
-                try:
-                    transcript = transcript_list.find_transcript([lang])
-                    break
-                except NoTranscriptFound:
-                    continue
-            
-            # If preferred language not found, try to get any available transcript
-            if transcript is None:
-                try:
-                    transcript = transcript_list.find_generated_transcript(['en'])
-                except NoTranscriptFound:
-                    pass
-            
-            # Fetch the actual transcript data
-            # transcript.fetch() returns a list of FetchedTranscriptSnippet objects
-            # Each object has: .text, .start, .duration attributes
-            transcript_data = transcript.fetch()
-            
-            # Extract text from each snippet and join into a single string
-            full_text = ' '.join([snippet.text for snippet in transcript_data])
-            
-            return Transcript(text=full_text)
+        video_url = f"https://www.youtube.com/watch?v={video_id}"
         
-        except AttributeError as e:
-            print(f"Error fetching transcript for video {video_id}: {e}")
-            return None
-        except (TranscriptsDisabled, NoTranscriptFound) as e:
-            print(f"Transcript not available for video {video_id}: {e}")
+        try:
+            # Configure yt-dlp to extract subtitles
+            ydl_opts = {
+                'writesubtitles': True,
+                'writeautomaticsub': True,
+                'subtitleslangs': languages,
+                'skip_download': True,
+                'quiet': True,
+                'no_warnings': True,
+            }
+            
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(video_url, download=False)
+            
+            # Try to get subtitles from available sources
+            subtitles = info.get('subtitles', {})
+            automatic_captions = info.get('automatic_captions', {})
+            
+            # Combine both sources
+            all_subtitles = {**automatic_captions, **subtitles}
+            
+            if not all_subtitles:
+                print(f"Transcript not available for video {video_id}")
+                return None
+            
+            # Try preferred languages first
+            transcript_url = None
+            for lang in languages:
+                if lang in all_subtitles:
+                    # Get the first available format (usually vtt or srv3)
+                    transcript_url = all_subtitles[lang][0].get('url')
+                    if transcript_url:
+                        break
+            
+            # If preferred language not found, try any available language
+            if not transcript_url:
+                for lang, formats in all_subtitles.items():
+                    if formats:
+                        transcript_url = formats[0].get('url')
+                        if transcript_url:
+                            break
+            
+            if not transcript_url:
+                print(f"Transcript not available for video {video_id}")
+                return None
+            
+            # Download and parse the transcript (with caching)
+            cache_key = f"transcript_{video_id}"
+            cached_vtt = get_cached(cache_key, "vtt")
+            
+            if cached_vtt:
+                vtt_content = cached_vtt
+            else:
+                response = requests.get(transcript_url, timeout=30)
+                response.raise_for_status()
+                vtt_content = response.text
+                set_cached(cache_key, vtt_content, "vtt")
+            
+            # Parse transcript (auto-detects VTT vs JSON3 format)
+            transcript_text = self._parse_transcript(vtt_content)
+            
+            if not transcript_text:
+                print(f"Failed to parse transcript for video {video_id}")
+                return None
+            
+            return Transcript(text=transcript_text)
+        
+        except yt_dlp.utils.DownloadError as e:
+            error_msg = str(e).lower()
+            if any(keyword in error_msg for keyword in ['private', 'unavailable', 'removed', 'not found']):
+                print(f"Video {video_id} is unavailable or private")
+            else:
+                print(f"Error fetching transcript for video {video_id}: {e}")
             return None
         except Exception as e:
-            # Check if this is an IpBlocked exception
-            exception_type_name = type(e).__name__
-            
-            # Try isinstance check if IpBlocked was imported successfully
-            if IpBlocked and isinstance(e, IpBlocked):
-                print(f"IP blocked by YouTube for video {video_id}. Consider using a proxy or waiting before retrying.")
-                return None
-            
-            # Check by type name (works even if import failed)
-            if exception_type_name == 'IpBlocked':
-                print(f"IP blocked by YouTube for video {video_id}. Consider using a proxy or waiting before retrying.")
-                return None
-            
-            # Check error message for IP blocking indicators (fallback)
             error_msg = str(e).lower()
-            if any(keyword in error_msg for keyword in ['ip blocked', 'blocking requests', 'ip has been blocked', 'cloud provider']):
-                print(f"IP blocked by YouTube for video {video_id}. Consider using a proxy or waiting before retrying.")
-                return None
-            
-            # Generic error handler
-            print(f"Error fetching transcript for video {video_id}: {e}")
+            # Check for IP blocking or rate limiting
+            if any(keyword in error_msg for keyword in ['ip blocked', 'blocking requests', 'ip has been blocked', 'cloud provider', '429', 'rate limit']):
+                print(f"IP blocked or rate limited by YouTube for video {video_id}. Consider using a proxy or waiting before retrying.")
+            else:
+                print(f"Error fetching transcript for video {video_id}: {e}")
             return None
+    
+    @staticmethod
+    def _parse_transcript(content: str) -> str:
+        """
+        Parse transcript content, auto-detecting VTT or JSON3 format.
+        
+        Args:
+            content: Raw transcript content (VTT or JSON3)
+        
+        Returns:
+            Cleaned transcript text
+        """
+        content = content.strip()
+        
+        # Detect format: JSON3 starts with { and contains "events"
+        if content.startswith('{'):
+            try:
+                return YouTubeScraper._parse_json3(content)
+            except (json.JSONDecodeError, KeyError):
+                pass  # Fall back to VTT parsing
+        
+        # Default to VTT parsing
+        return YouTubeScraper._parse_vtt(content)
+    
+    @staticmethod
+    def _parse_json3(json_content: str) -> str:
+        """
+        Parse JSON3 (YouTube's native subtitle format) and extract text.
+        
+        Args:
+            json_content: Raw JSON3 content
+        
+        Returns:
+            Cleaned transcript text
+        """
+        data = json.loads(json_content)
+        text_parts = []
+        
+        events = data.get('events', [])
+        for event in events:
+            segs = event.get('segs', [])
+            for seg in segs:
+                text = seg.get('utf8', '')
+                if text and text != '\n':
+                    text_parts.append(text)
+        
+        # Join and clean up
+        full_text = ''.join(text_parts)
+        # Normalize whitespace
+        full_text = re.sub(r'\s+', ' ', full_text).strip()
+        return full_text
+    
+    @staticmethod
+    def _parse_vtt(vtt_content: str) -> str:
+        """
+        Parse VTT (WebVTT) subtitle format and extract text.
+        
+        Args:
+            vtt_content: Raw VTT content
+        
+        Returns:
+            Cleaned transcript text
+        """
+        lines = vtt_content.split('\n')
+        text_lines = []
+        
+        for line in lines:
+            # Skip empty lines, timestamps, and metadata
+            if not line.strip():
+                continue
+            if '-->' in line:  # Timestamp line
+                continue
+            if line.strip().startswith('WEBVTT'):
+                continue
+            if line.strip().startswith('NOTE'):
+                continue
+            if line.strip().startswith('Kind:'):
+                continue
+            if line.strip().startswith('Language:'):
+                continue
+            
+            # Remove HTML tags if present
+            line = re.sub(r'<[^>]+>', '', line)
+            
+            # Remove speaker labels (e.g., "SPEAKER 00:00:00")
+            line = re.sub(r'^[A-Z\s]+\d+:\d+:\d+', '', line)
+            
+            if line.strip():
+                text_lines.append(line.strip())
+        
+        return ' '.join(text_lines)
     
     def scrape_channel(
         self, 
