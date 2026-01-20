@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <link rel="self" href="http://www.youtube.com/feeds/videos.xml?channel_id=UCP7jMXSY2xbc3KCAE0MHQ-A"/>
+ <id>yt:channel:P7jMXSY2xbc3KCAE0MHQ-A</id>
+ <yt:channelId>P7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+ <title>Google DeepMind</title>
+ <link rel="alternate" href="https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A"/>
+ <author>
+  <name>Google DeepMind</name>
+  <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+ </author>
+ <published>2016-01-21T15:34:28+00:00</published>
+ <entry>
+  <id>yt:video:z4x9fkbe8SI</id>
+  <yt:videoId>z4x9fkbe8SI</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Creative UI in a spark</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=z4x9fkbe8SI"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:34+00:00</published>
+  <updated>2025-12-18T17:24:43+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Creative UI in a spark</media:title>
+   <media:content url="https://www.youtube.com/v/z4x9fkbe8SI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/z4x9fkbe8SI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash excels in capabilities required for rapid prototyping, including instant code generation, aesthetic versatility, and creative ideation. It can also natively drive the design process, like generating new prompts for style exploration, and can produce multiple distinct UI variations with just a single click to accelerate development.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="1004" average="5.00" min="1" max="5"/>
+    <media:statistics views="45552"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:1nd0CbaJD3E</id>
+  <yt:videoId>1nd0CbaJD3E</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Transform messy data</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=1nd0CbaJD3E"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:29+00:00</published>
+  <updated>2025-12-18T17:24:27+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Transform messy data</media:title>
+   <media:content url="https://www.youtube.com/v/1nd0CbaJD3E?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/1nd0CbaJD3E/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash is a great tool for a tedious, multi-step processes (Example: &quot;Extract, transform, load”) for merging two messy data sources. It’s a common problem in enterprise settings, where developers often have to parse unstructured data into databases. Gemini 3 Flash solves for this with its multimodal and complex reasoning capabilities.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="289" average="5.00" min="1" max="5"/>
+    <media:statistics views="14585"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:bY_RarpUdUw</id>
+  <yt:videoId>bY_RarpUdUw</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Evolve code faster</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=bY_RarpUdUw"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:25+00:00</published>
+  <updated>2025-12-18T17:24:01+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Evolve code faster</media:title>
+   <media:content url="https://www.youtube.com/v/bY_RarpUdUw?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/bY_RarpUdUw/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash enables modern coding workflows, including ultra-low latency, near real-time code generation, and rapid iteration. It can also natively facilitate A/B testing, like evolving the perfect loading spinner in milliseconds, and can adapt to user selections to generate refined code variants in real time.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="351" average="5.00" min="1" max="5"/>
+    <media:statistics views="14212"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:XHhCZOk2WvY</id>
+  <yt:videoId>XHhCZOk2WvY</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Renders faster and efficiently</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=XHhCZOk2WvY"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:21+00:00</published>
+  <updated>2025-12-18T17:24:06+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Renders faster and efficiently</media:title>
+   <media:content url="https://www.youtube.com/v/XHhCZOk2WvY?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/XHhCZOk2WvY/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash excels in speed and efficiency by coding SVG images, HTML, and three.js side-by-side between 3 Flash and 2.5 Pro. 3 Flash generates the imagery better, faster and with fewer token usage.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="448" average="5.00" min="1" max="5"/>
+    <media:statistics views="16925"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:DNPLK-MvoSg</id>
+  <yt:videoId>DNPLK-MvoSg</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Assist in real-time game play</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=DNPLK-MvoSg"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:15+00:00</published>
+  <updated>2025-12-18T17:23:53+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Assist in real-time game play</media:title>
+   <media:content url="https://www.youtube.com/v/DNPLK-MvoSg?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/DNPLK-MvoSg/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash specializes in capabilities critical for live assistance, including complex geometric calculation, velocity estimation, and multimodal processing. It can also simultaneously analyze video and hand-tracking inputs to provide strategic, real-time guidance in this slingshot game.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="164" average="5.00" min="1" max="5"/>
+    <media:statistics views="9914"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:DfaRahn_dwo</id>
+  <yt:videoId>DfaRahn_dwo</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Orchestrate a function call kitchen</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=DfaRahn_dwo"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:10+00:00</published>
+  <updated>2025-12-18T19:20:08+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Orchestrate a function call kitchen</media:title>
+   <media:content url="https://www.youtube.com/v/DfaRahn_dwo?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/DfaRahn_dwo/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash specializes in capabilities critical for large-scale agentic workflows, including reliable function calling at scale, resource reasoning, and low-latency execution. It can natively reason across vast inventories—selecting and combining over 100 tools and 100 ingredients—and leverages world knowledge of international recipes to output a single comprehensive, delicious recipe
+
+Learn more at https://deepmind.google/models/gemini/flash/
+Try in AI Studio: https://aistudio.google.com/apps/bundled/function_call_kitchen 
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/&quot;</media:description>
+   <media:community>
+    <media:starRating count="220" average="5.00" min="1" max="5"/>
+    <media:statistics views="10517"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:ZtMEe3W0aP0</id>
+  <yt:videoId>ZtMEe3W0aP0</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Generate a narrative of your journey</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=ZtMEe3W0aP0"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T16:00:03+00:00</published>
+  <updated>2025-12-18T19:37:15+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Generate a narrative of your journey</media:title>
+   <media:content url="https://www.youtube.com/v/ZtMEe3W0aP0?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/ZtMEe3W0aP0/hqdefault.jpg" width="480" height="360"/>
+   <media:description>This model specializes in capabilities critical for context-aware storytelling, including rapid planning, map data analysis, and creative text generation. It can also natively interpret route logistics, like translating journey duration into narrative pacing, and can adapt to diverse writing styles to weave a personalized story in real time.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="279" average="5.00" min="1" max="5"/>
+    <media:statistics views="10519"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:f0TL0GG_lo8</id>
+  <yt:videoId>f0TL0GG_lo8</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Gemini 3 Flash: Visual context in an instant</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=f0TL0GG_lo8"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-17T15:59:50+00:00</published>
+  <updated>2025-12-18T17:25:09+00:00</updated>
+  <media:group>
+   <media:title>Gemini 3 Flash: Visual context in an instant</media:title>
+   <media:content url="https://www.youtube.com/v/f0TL0GG_lo8?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/f0TL0GG_lo8/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Gemini 3 Flash adds a contextual UI on image generations, showing its strong multimodal capabilities in understanding visual input and reasoning to describe the content of the image in a compelling and interactive way.
+
+Learn more at https://deepmind.google/models/gemini/flash/
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="193" average="5.00" min="1" max="5"/>
+    <media:statistics views="11682"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:PqVbypvxDto</id>
+  <yt:videoId>PqVbypvxDto</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>The future of intelligence | Demis Hassabis (Co-founder and CEO of DeepMind)</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=PqVbypvxDto"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-16T17:04:30+00:00</published>
+  <updated>2026-01-02T09:07:16+00:00</updated>
+  <media:group>
+   <media:title>The future of intelligence | Demis Hassabis (Co-founder and CEO of DeepMind)</media:title>
+   <media:content url="https://www.youtube.com/v/PqVbypvxDto?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/PqVbypvxDto/hqdefault.jpg" width="480" height="360"/>
+   <media:description>In our final episode of the season, Professor Hannah Fry sits down with Google DeepMind Co-founder and CEO Demis Hassabis for their annual check-in. Together, they look beyond the product launches to the scientific and technological questions that will define the next decade.
+
+Demis shares his vision for the path to AGI - from solving &quot;root node&quot; problems in fusion energy and material science to the rise of world models and simulations. They also explore what's beyond the frontier and the importance of balancing scientific rigor amid the competitive dynamics of AI advancement. 
+
+Thanks for joining us this year!
+🔔 Subscribe to stay updated on our return in 2026, and revisit our episode library to catch up on everything from driverless cars to drug discovery: https://www.youtube.com/playlist?list=PLqYmG7hTraZBiUr6_Qf8YTS2Oqy3OGZEj 
+
+Timecodes
+01:42 2025 progress
+05:14 Jagged intelligence 
+07:32 Mathematical version of AlphaGo?
+09:30 Science vs commercialization 
+12:42 Scaling 
+17:43 Genie and simulation 
+25:47 Evolution in simulation
+28:26 AI bubble
+31:56 Building ethical AI
+34:31 AGI  
+44:44 Turing machines
+49:06 How it feels to lead
+
+___
+
+Thanks to everyone who made this possible, including but not limited to: 
+Presenter: Professor Hannah Fry
+Series Producer: Dan Hardoon
+Editor: Rami Tzabar
+Commissioner &amp; Producer: Emma Yousif
+Music composition: Eleni Shaw
+Audio engineer: Richard Courtice
+
+Studio Manager: Nicholas Duke
+Video Director: Bernardo Resende
+Video Editor: Anthony Le
+Audio Engineer: Perry Rogantin
+Production Coordination: Zoey Roberts 
+Visual Identity and Design: Rob Ashley 
+Commissioned by Google DeepMind
+
+__
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="14936" average="5.00" min="1" max="5"/>
+    <media:statistics views="10407186"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:l3u_FAv33G0</id>
+  <yt:videoId>l3u_FAv33G0</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>The arrival of AGI | Shane Legg (co-founder of DeepMind)</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=l3u_FAv33G0"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-11T17:03:41+00:00</published>
+  <updated>2026-01-07T11:45:05+00:00</updated>
+  <media:group>
+   <media:title>The arrival of AGI | Shane Legg (co-founder of DeepMind)</media:title>
+   <media:content url="https://www.youtube.com/v/l3u_FAv33G0?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/l3u_FAv33G0/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Shane Legg, Chief AGI Scientist and co-founder of Google DeepMind, has been talking about artificial general intelligence, or AGI, for more than a decade. So what’s changed? According to Shane, now is the time to take it seriously.
+
+In this episode, Shane walks host Hannah Fry through his AGI framework, breaking down the levels from minimal AGI to full AGI, and his timelines for each. They discuss the economic and societal shifts AGI will bring, the potential impact on work, and the extraordinary possibilities for human flourishing.
+
+Timecodes
+00:00 Coming up
+00:41 Intro
+13:43 Defining artificial general intelligence
+26:20 Ethics of AGI
+40:10 Societal and economic transformation 
+45:10 Future of work
+50:00 Potential for human flourishing
+
+Further reading
+
+Levels of AGI paper: https://arxiv.org/abs/2311.02462 
+The road to AGI (Google DeepMind Podcast, S2): https://youtu.be/Uy4OYU7PQYA 
+
+___
+
+Thanks to everyone who made this possible, including but not limited to: 
+Presenter: Professor Hannah Fry
+Series Producer: Dan Hardoon
+Editor: Rami Tzabar
+Commissioner &amp; Producer: Emma Yousif
+Music composition: Eleni Shaw
+Audio engineer: Richard Courtice
+
+Production Manager: Dan Lazard
+Studio Manager: Nicholas Duke
+Video Director: Bernardo Resende
+Video Editor: Bilal Merhi 
+Audio Engineer: Perry Rogantin
+Camera and Lighting Operator: Robert Messere
+Production Coordination: Zoey Roberts, Sarah Ellen Morton 
+Visual Identity and Design: Rob Ashley 
+Commissioned by Google DeepMind
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="8941" average="5.00" min="1" max="5"/>
+    <media:statistics views="1072955"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:UALxgn1MnZo</id>
+  <yt:videoId>UALxgn1MnZo</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>Google DeepMind robotics lab tour with Hannah Fry</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=UALxgn1MnZo"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-10T16:20:20+00:00</published>
+  <updated>2025-12-11T06:31:22+00:00</updated>
+  <media:group>
+   <media:title>Google DeepMind robotics lab tour with Hannah Fry</media:title>
+   <media:content url="https://www.youtube.com/v/UALxgn1MnZo?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/UALxgn1MnZo/hqdefault.jpg" width="480" height="360"/>
+   <media:description>In this episode, we open the archives on host Hannah Fry’s visit to our California robotics lab. Filmed earlier this year, Hannah interacts with a new set of robots—those that don't just see, but think, plan, and do. Watch as the team goes behind the scenes to test the limits of generalization, challenging robots to handle unseen objects autonomously.
+
+Learn more about our most recent models: https://deepmind.google/models/gemini-robotics/
+
+____
+
+Presenter: Professor Hannah Fry
+Video editor: Anthony Le
+Audio engineer: Perry Rogantin
+Visual identity: Rob Ashley
+Commissioned by Google DeepMind
+Series Producer: Dan Hardoon
+Editor: Rami Tzabar
+Commissioner &amp; Producer: Emma Yousif
+Music composition: Eleni Shaw</media:description>
+   <media:community>
+    <media:starRating count="11726" average="5.00" min="1" max="5"/>
+    <media:statistics views="471343"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:ymPp7NBLgoA</id>
+  <yt:videoId>ymPp7NBLgoA</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>What does ancient bridge building and AI have in common?</title>
+  <link rel="alternate" href="https://www.youtube.com/shorts/ymPp7NBLgoA"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-02T14:51:44+00:00</published>
+  <updated>2025-12-03T06:48:24+00:00</updated>
+  <media:group>
+   <media:title>What does ancient bridge building and AI have in common?</media:title>
+   <media:content url="https://www.youtube.com/v/ymPp7NBLgoA?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/ymPp7NBLgoA/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Distinguished Scientist John Jumper explains how confidence in AI tools for science can come from seeing them perform reliably – similar to ancient builders constructing safe bridges without knowing the equations of their engineering.
+
+He shares his journey from helping develop AlphaFold and being awarded a Nobel Prize, to accelerating science with AI – all on our podcast with @fryrsquared</media:description>
+   <media:community>
+    <media:starRating count="492" average="5.00" min="1" max="5"/>
+    <media:statistics views="15247"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:KzB0ywf4V-E</id>
+  <yt:videoId>KzB0ywf4V-E</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>What’s new in Gemini 3?</title>
+  <link rel="alternate" href="https://www.youtube.com/shorts/KzB0ywf4V-E"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-12-01T14:21:29+00:00</published>
+  <updated>2025-12-02T07:00:19+00:00</updated>
+  <media:group>
+   <media:title>What’s new in Gemini 3?</media:title>
+   <media:content url="https://www.youtube.com/v/KzB0ywf4V-E?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/KzB0ywf4V-E/hqdefault.jpg" width="480" height="360"/>
+   <media:description>ICYMI: Gemini 3 is out now. Here’s what you need to know. 
+
+🧠 State-of-the-art reasoning and multimodal capabilities
+🍌 Nano Banana Pro for image generation and editing
+💻 Google Antigravity for agentic coding
+
+Learn more at https://deepmind.google</media:description>
+   <media:community>
+    <media:starRating count="3576" average="5.00" min="1" max="5"/>
+    <media:statistics views="76555"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:-pGs0btGmgY</id>
+  <yt:videoId>-pGs0btGmgY</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>AlphaFold: Grand challenge to Nobel Prize | John Jumper</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=-pGs0btGmgY"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-11-28T14:17:37+00:00</published>
+  <updated>2025-12-17T09:44:07+00:00</updated>
+  <media:group>
+   <media:title>AlphaFold: Grand challenge to Nobel Prize | John Jumper</media:title>
+   <media:content url="https://www.youtube.com/v/-pGs0btGmgY?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/-pGs0btGmgY/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Five years ago, AlphaFold 2 solved the protein structure prediction problem, unlocking new avenues of biological research and providing our first major proof point that AI can be a powerful tool to advance science and cure disease. The profound scientific and societal value of this work was even recognized in 2024 with the Nobel Prize in Chemistry. In this episode, Hannah is joined by John Jumper, one of the most instrumental scientists behind AlphaFold. He shares stories about his Nobel win, the tool's unexpected applications, and the shift in architecture from AlphaFold 2 to the more comprehensive AlphaFold 3. 
+
+Learn more about AlphaFold: https://deepmind.google/science/alphafold/
+
+Watch the story behind AlphaFold on the Thinking Game, now available for free: https://youtu.be/d95J8yzvjbQ
+
+___
+
+Timecodes
+00:00 Intro 
+02:06 The Nobel Prize call 
+06:35 The &quot;Grand Challenge&quot; breakthrough 
+09:42 Reactions from the community
+12:48 Unexpected use cases  
+16:04 AlphaFold 3 and diffusion models
+26:54 Roman aqueducts  
+33:46 Designing new proteins
+40:40 Does AI think? 
+46:51 Hannah's reflections
+___
+
+Thank you to everyone who made this possible, including but not limited to: 
+
+Presenter: Professor Hannah Fry
+Series Producer: Dan Hardoon
+Editor: Rami Tzabar
+Commissioner &amp; Producer: Emma Yousif
+Music composition: Eleni Shaw
+Audio engineer: Richard Courtice
+Video editor: Anthony Le
+Audio engineer: Perry Rogantin
+Visual identity: Rob Ashley
+Commissioned by Google DeepMind
+___
+
+Subscribe to our channel https://www.youtube.com/@googledeepmind
+Find us on X https://twitter.com/GoogleDeepMind
+Follow us on Instagram https://instagram.com/googledeepmind
+Add us on Linkedin https://www.linkedin.com/company/deepmind/</media:description>
+   <media:community>
+    <media:starRating count="2508" average="5.00" min="1" max="5"/>
+    <media:statistics views="240203"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:DOeKS84G0kI</id>
+  <yt:videoId>DOeKS84G0kI</yt:videoId>
+  <yt:channelId>UCP7jMXSY2xbc3KCAE0MHQ-A</yt:channelId>
+  <title>The Thinking Game | Available to watch for free on @googledeepmind</title>
+  <link rel="alternate" href="https://www.youtube.com/shorts/DOeKS84G0kI"/>
+  <author>
+   <name>Google DeepMind</name>
+   <uri>https://www.youtube.com/channel/UCP7jMXSY2xbc3KCAE0MHQ-A</uri>
+  </author>
+  <published>2025-11-26T17:21:11+00:00</published>
+  <updated>2025-11-27T09:04:00+00:00</updated>
+  <media:group>
+   <media:title>The Thinking Game | Available to watch for free on @googledeepmind</media:title>
+   <media:content url="https://www.youtube.com/v/DOeKS84G0kI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/DOeKS84G0kI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>The Thinking Game captured our teams for over 5 years as they navigated the complex challenges of the protein folding problem – culminating in a Nobel Prize-awarded breakthrough. Stream the film for free now on our channel: https://youtu.be/d95J8yzvjbQ</media:description>
+   <media:community>
+    <media:starRating count="929" average="5.00" min="1" max="5"/>
+    <media:statistics views="24356"/>
+   </media:community>
+  </media:group>
+ </entry>
+</feed>

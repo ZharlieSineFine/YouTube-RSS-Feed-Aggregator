@@ -1,5 +1,7 @@
 """OpenAI News scraper - scrapes the news page directly."""
 
+import logging
+import warnings
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 import json
@@ -10,6 +12,10 @@ import tempfile
 from docling.document_converter import DocumentConverter
 from playwright.sync_api import sync_playwright
 from pydantic import BaseModel, ConfigDict, Field
+
+# Suppress docling formatting warnings
+logging.getLogger("docling").setLevel(logging.ERROR)
+warnings.filterwarnings("ignore", message="Clashing formatting")
 
 try:
     from .cache import get_cached, set_cached
