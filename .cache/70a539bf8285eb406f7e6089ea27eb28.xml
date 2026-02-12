@@ -13,7 +13,23 @@
       <link>https://anthropic.com/engineering/feed_anthropic_engineering.xml</link>
     </image>
     <language>en</language>
-    <lastBuildDate>Mon, 19 Jan 2026 13:20:37 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 08 Feb 2026 05:30:28 +0000</lastBuildDate>
+    <item>
+      <title>Building a C compiler with a team of parallel Claudes</title>
+      <link>https://www.anthropic.com/engineering/building-c-compiler</link>
+      <description>We tasked Opus 4.6 using agent teams to build a C Compiler, and then (mostly) walked away. Here's what it taught us about the future of autonomous software development.</description>
+      <guid isPermaLink="false">https://www.anthropic.com/engineering/building-c-compiler</guid>
+      <category>Engineering</category>
+      <pubDate>Thu, 05 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Designing AI-resistant technical evaluations</title>
+      <link>https://www.anthropic.com/engineering/AI-resistant-technical-evaluations</link>
+      <description>What we learned from three iterations of a performance engineering take-home that Claude keeps beating.</description>
+      <guid isPermaLink="false">https://www.anthropic.com/engineering/AI-resistant-technical-evaluations</guid>
+      <category>Engineering</category>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Demystifying evals for AI agents</title>
       <link>https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents</link>
@@ -55,26 +71,10 @@
       <pubDate>Mon, 20 Oct 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Equipping agents for the real world with Agent Skills</title>
-      <link>https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills</link>
-      <description>Claude is powerful, but real work requires procedural knowledge and organizational context. Introducing Agent Skills, a new way to build specialized agents using files and folders.</description>
-      <guid isPermaLink="false">https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills</guid>
-      <category>Engineering</category>
-      <pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
       <title>Effective context engineering for AI agents</title>
       <link>https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</link>
       <description>Context is a critical but finite resource for AI agents. In this post, we explore strategies for effectively curating and managing the context that powers them.</description>
       <guid isPermaLink="false">https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents</guid>
-      <category>Engineering</category>
-      <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Building agents with the Claude Agent SDK</title>
-      <link>https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk</link>
-      <description>The Claude Agent SDK is a collection of tools that helps developers build powerful agents on top of Claude Code. In this article, we walk through how to get started  and share our best practices.</description>
-      <guid isPermaLink="false">https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk</guid>
       <category>Engineering</category>
       <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
     </item>

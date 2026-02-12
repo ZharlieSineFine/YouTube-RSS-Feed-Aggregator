@@ -191,6 +191,10 @@ class OpenAINewsScraper:
         now = datetime.now(timezone.utc)
         cutoff_time = now - timedelta(hours=hours_back)
         
+        # #region agent log
+        _dbg("A", "openai_news.py:fetch_articles", "time_filter", {"now": now.isoformat(), "cutoff": cutoff_time.isoformat(), "hours_back": hours_back, "total_articles": len(articles_data)})
+        # #endregion
+        
         for item in articles_data:
             # Parse date from the extracted date string (e.g., "Jan 18, 2026")
             date_str = item.get('dateStr', '')
@@ -203,6 +207,10 @@ class OpenAINewsScraper:
             # Skip articles without a valid date (we can't filter by time)
             if published_at is None:
                 continue
+            
+            # #region agent log
+            _dbg("A", "openai_news.py:fetch_articles", "entry_filter", {"title": item['title'][:50], "published": published_at.isoformat(), "passes_filter": published_at >= cutoff_time})
+            # #endregion
             
             # Filter by time window
             if published_at < cutoff_time:

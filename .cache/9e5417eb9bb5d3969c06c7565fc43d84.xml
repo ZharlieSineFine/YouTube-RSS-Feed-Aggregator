@@ -13,7 +13,71 @@
       <link>https://www.anthropic.com/news</link>
     </image>
     <language>en</language>
-    <lastBuildDate>Mon, 19 Jan 2026 13:20:33 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Feb 2026 18:15:23 +0000</lastBuildDate>
+    <item>
+      <title>Claude is a space to think</title>
+      <link>https://www.anthropic.com/news/claude-is-a-space-to-think</link>
+      <description>Claude is a space to think</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/claude-is-a-space-to-think</guid>
+      <category>Announcements</category>
+      <pubDate>Wed, 04 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Apple’s Xcode now supports the Claude Agent SDK</title>
+      <link>https://www.anthropic.com/news/apple-xcode-claude-agent-sdk</link>
+      <description>Apple’s Xcode now supports the Claude Agent SDK</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/apple-xcode-claude-agent-sdk</guid>
+      <category>Product</category>
+      <pubDate>Tue, 03 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery</title>
+      <link>https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute</link>
+      <description>Anthropic partners with Allen Institute and Howard Hughes Medical Institute to accelerate scientific discovery</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/anthropic-partners-with-allen-institute-and-howard-hughes-medical-institute</guid>
+      <category>Societal Impacts</category>
+      <pubDate>Mon, 02 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>ServiceNow chooses Claude to power customer apps and increase internal productivity</title>
+      <link>https://www.anthropic.com/news/servicenow-anthropic-claude</link>
+      <description>ServiceNow chooses Claude to power customer apps and increase internal productivity</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/servicenow-anthropic-claude</guid>
+      <category>Announcements</category>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic partners with the UK Government to bring AI assistance to GOV.UK services</title>
+      <link>https://www.anthropic.com/news/gov-UK-partnership</link>
+      <description>Anthropic partners with the UK Government to bring AI assistance to GOV.UK services</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/gov-UK-partnership</guid>
+      <category>Announcements</category>
+      <pubDate>Tue, 27 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Claude's new constitution</title>
+      <link>https://www.anthropic.com/news/claude-new-constitution</link>
+      <description>Claude's new constitution</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/claude-new-constitution</guid>
+      <category>Announcements</category>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic and Teach For All launch global AI training initiative for educators</title>
+      <link>https://www.anthropic.com/news/anthropic-teach-for-all</link>
+      <description>Anthropic and Teach For All launch global AI training initiative for educators</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/anthropic-teach-for-all</guid>
+      <category>Announcements</category>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Mariano-Florentino Cuéllar appointed to Anthropic’s Long-Term Benefit Trust</title>
+      <link>https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust</link>
+      <description>Mariano-Florentino Cuéllar appointed to Anthropic’s Long-Term Benefit Trust</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/mariano-florentino-long-term-benefit-trust</guid>
+      <category>Announcements</category>
+      <pubDate>Wed, 21 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Anthropic appoints Irina Ghose as Managing Director of India ahead of Bengaluru office opening</title>
       <link>https://www.anthropic.com/news/anthropic-appoints-irina-ghose-as-managing-director-of-india</link>
@@ -55,9 +119,9 @@
       <pubDate>Fri, 19 Dec 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Protecting the well-being of our users</title>
+      <title>Protecting the wellbeing of our users</title>
       <link>https://www.anthropic.com/news/protecting-well-being-of-users</link>
-      <description>Protecting the well-being of our users</description>
+      <description>Protecting the wellbeing of our users</description>
       <guid isPermaLink="false">https://www.anthropic.com/news/protecting-well-being-of-users</guid>
       <category>Announcements</category>
       <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>

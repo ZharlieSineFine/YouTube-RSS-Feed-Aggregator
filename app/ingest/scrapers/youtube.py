@@ -15,6 +15,11 @@ try:
 except ImportError:
     from cache import get_cached, set_cached
 
+# #region agent log
+LOG_PATH = r"c:\Cursor_Projects\ai-news-aggregator-test\.cursor\debug.log"
+def _dbg(hyp, loc, msg, data): open(LOG_PATH, "a").write(json.dumps({"hypothesisId": hyp, "location": loc, "message": msg, "data": data, "timestamp": datetime.now().isoformat()}) + "\n")
+# #endregion
+
 
 class ChannelVideo(BaseModel):
     """Pydantic model for a YouTube channel video."""
@@ -127,12 +132,20 @@ class YouTubeScraper:
         now = datetime.now(timezone.utc)
         cutoff_time = now - timedelta(hours=hours_back)
         
+        # #region agent log
+        _dbg("A", "youtube.py:fetch_channel_videos", "time_filter", {"now": now.isoformat(), "cutoff": cutoff_time.isoformat(), "hours_back": hours_back, "total_entries": len(feed.entries)})
+        # #endregion
+        
         for entry in feed.entries:
             # Parse published date
             if not hasattr(entry, 'published_parsed') or not entry.published_parsed:
                 continue
             
             published_time = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+            
+            # #region agent log
+            _dbg("A", "youtube.py:fetch_channel_videos", "entry_date", {"title": entry.title[:50], "published": published_time.isoformat(), "passes_filter": published_time >= cutoff_time})
+            # #endregion
             
             # Filter by time window
             if published_time < cutoff_time:

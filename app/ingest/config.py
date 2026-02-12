@@ -3,7 +3,7 @@ Configuration for content sources.
 """
 
 # How far back to look for content (in hours)
-HOURS_BACK = 200
+HOURS_BACK = 300
 
 # YouTube channel IDs to monitor
 YOUTUBE_CHANNELS = [

@@ -127,3 +127,19 @@ grab it in such a way and create a pyantic model around it where we can simply g
 published within a given time frame. Let's start there first and really do it
 clean and simple in as little code as possible.
 
+
+
+so now we got the core scrapers in place. We got YouTube, we got anthropic, and we got
+OpenAI. Now what I want you to do is I want you to create some kind of like
+runner that brings everything together where we can first of all look oh
+there's one more thing we need someplace to store which channels YouTube channels
+we want to monitor. you can keep it very simple for now and that we should store
+that somewhere and then for anthropic and for openai the it's always the same the
+input and then we want to create some kind of like function where we can kick
+off this process and then also identify
+how how far we want to go back and
+ideally we want to set it to 24 uh hours
+in the beginning where do we place that
+and what would that look like try and
+keep it as simple as possible
+

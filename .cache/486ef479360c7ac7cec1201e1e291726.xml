@@ -13,7 +13,7 @@
       <link>https://anthropic.com/research/feed_anthropic_research.xml</link>
     </image>
     <language>en</language>
-    <lastBuildDate>Mon, 19 Jan 2026 13:18:12 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Feb 2026 18:13:59 +0000</lastBuildDate>
     <item>
       <title>Societal Impacts</title>
       <link>https://www.anthropic.com/research/team/societal-impacts</link>
@@ -43,6 +43,30 @@
       <category>Research</category>
     </item>
     <item>
+      <title>Jan 29, 2026AlignmentHow AI assistance impacts the formation of coding skills</title>
+      <link>https://www.anthropic.com/research/AI-assistance-coding-skills</link>
+      <description>Jan 29, 2026AlignmentHow AI assistance impacts the formation of coding skills</description>
+      <guid isPermaLink="false">https://www.anthropic.com/research/AI-assistance-coding-skills</guid>
+      <category>Research</category>
+      <pubDate>Thu, 29 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Jan 28, 2026AlignmentDisempowerment patterns in real-world AI usage</title>
+      <link>https://www.anthropic.com/research/disempowerment-patterns</link>
+      <description>Jan 28, 2026AlignmentDisempowerment patterns in real-world AI usage</description>
+      <guid isPermaLink="false">https://www.anthropic.com/research/disempowerment-patterns</guid>
+      <category>Research</category>
+      <pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Jan 19, 2026InterpretabilityThe assistant axis: situating and stabilizing the character of large language models</title>
+      <link>https://www.anthropic.com/research/assistant-axis</link>
+      <description>Jan 19, 2026InterpretabilityThe assistant axis: situating and stabilizing the character of large language models</description>
+      <guid isPermaLink="false">https://www.anthropic.com/research/assistant-axis</guid>
+      <category>Research</category>
+      <pubDate>Mon, 19 Jan 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Jan 15, 2026Economic ResearchAnthropic Economic Index report: economic primitives</title>
       <link>https://www.anthropic.com/research/anthropic-economic-index-january-2026-report</link>
       <description>Jan 15, 2026Economic ResearchAnthropic Economic Index report: economic primitives</description>
@@ -51,9 +75,9 @@
       <pubDate>Thu, 15 Jan 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Jan 15, 2026Economic ResearchAnthropic Economic Index: new building blocks for understanding AI use</title>
+      <title>Jan 15, 2026Economic ResearchAnthropic Economic Index: New building blocks for understanding AI use</title>
       <link>https://www.anthropic.com/research/economic-index-primitives</link>
-      <description>Jan 15, 2026Economic ResearchAnthropic Economic Index: new building blocks for understanding AI use</description>
+      <description>Jan 15, 2026Economic ResearchAnthropic Economic Index: New building blocks for understanding AI use</description>
       <guid isPermaLink="false">https://www.anthropic.com/research/economic-index-primitives</guid>
       <category>Research</category>
       <pubDate>Thu, 15 Jan 2026 00:00:00 +0000</pubDate>
@@ -89,38 +113,6 @@
       <guid isPermaLink="false">https://www.anthropic.com/research/anthropic-interviewer</guid>
       <category>Research</category>
       <pubDate>Thu, 04 Dec 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Dec 2, 2025Societal ImpactsHow AI is transforming work at Anthropic</title>
-      <link>https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic</link>
-      <description>Dec 2, 2025Societal ImpactsHow AI is transforming work at Anthropic</description>
-      <guid isPermaLink="false">https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic</guid>
-      <category>Research</category>
-      <pubDate>Tue, 02 Dec 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Nov 25, 2025Economic ResearchEstimating AI productivity gains from Claude conversations</title>
-      <link>https://www.anthropic.com/research/estimating-productivity-gains</link>
-      <description>Nov 25, 2025Economic ResearchEstimating AI productivity gains from Claude conversations</description>
-      <guid isPermaLink="false">https://www.anthropic.com/research/estimating-productivity-gains</guid>
-      <category>Research</category>
-      <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Nov 24, 2025ProductMitigating the risk of prompt injections in browser use</title>
-      <link>https://www.anthropic.com/research/prompt-injection-defenses</link>
-      <description>Nov 24, 2025ProductMitigating the risk of prompt injections in browser use</description>
-      <guid isPermaLink="false">https://www.anthropic.com/research/prompt-injection-defenses</guid>
-      <category>Research</category>
-      <pubDate>Mon, 24 Nov 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Nov 21, 2025AlignmentFrom shortcuts to sabotage: natural emergent misalignment from reward hacking</title>
-      <link>https://www.anthropic.com/research/emergent-misalignment-reward-hacking</link>
-      <description>Nov 21, 2025AlignmentFrom shortcuts to sabotage: natural emergent misalignment from reward hacking</description>
-      <guid isPermaLink="false">https://www.anthropic.com/research/emergent-misalignment-reward-hacking</guid>
-      <category>Research</category>
-      <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>InterpretabilityOct 29, 2025Signs of introspection in large language modelsCan Claude access and report on its own internal states? This research finds evidence for a limited but functional ability to introspect—a step toward understanding what's actually happening inside these models.</title>

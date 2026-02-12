@@ -1,5 +1,6 @@
 """Anthropic RSS scraper for fetching news, engineering, and research articles."""
 
+import json
 import logging
 import os
 import tempfile
@@ -22,6 +23,11 @@ try:
     from .cache import get_cached, set_cached
 except ImportError:
     from cache import get_cached, set_cached
+
+# #region agent log
+LOG_PATH = r"c:\Cursor_Projects\ai-news-aggregator-test\.cursor\debug.log"
+def _dbg(hyp, loc, msg, data): open(LOG_PATH, "a").write(json.dumps({"hypothesisId": hyp, "location": loc, "message": msg, "data": data, "timestamp": datetime.now().isoformat()}) + "\n")
+# #endregion
 
 
 class AnthropicFeedType(str, Enum):
@@ -131,11 +137,19 @@ class AnthropicScraper:
         now = datetime.now(timezone.utc)
         cutoff_time = now - timedelta(hours=hours_back)
         
+        # #region agent log
+        _dbg("A", "anthropic_news.py:_fetch_feed", "time_filter", {"feed": feed_type.value, "now": now.isoformat(), "cutoff": cutoff_time.isoformat(), "hours_back": hours_back, "total_entries": len(feed.entries)})
+        # #endregion
+        
         for entry in feed.entries:
             # Parse published date
             published_at = None
             if hasattr(entry, 'published_parsed') and entry.published_parsed:
                 published_at = datetime(*entry.published_parsed[:6], tzinfo=timezone.utc)
+            
+            # #region agent log
+            _dbg("A", "anthropic_news.py:_fetch_feed", "entry_date", {"title": entry.title[:50], "published": published_at.isoformat() if published_at else None, "passes_filter": (published_at >= cutoff_time) if published_at else "undated"})
+            # #endregion
             
             # Filter by time window (if article has a date)
             if published_at is not None:
