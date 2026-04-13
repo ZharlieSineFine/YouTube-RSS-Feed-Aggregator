@@ -29,9 +29,10 @@ function Write-Log([string]$Message) {
 Set-Location -LiteralPath $Root
 Write-Log "=== chain start ==="
 
-function Invoke-Step([string]$Label, [string[]]$Args) {
+# Do not name the parameter "Args" — it shadows $args / fails to bind; @Args becomes empty and "uv" runs with no subcommand (exit 2).
+function Invoke-Step([string]$Label, [string[]]$StepArgs) {
     Write-Log "$Label : starting"
-    & uv @Args
+    & uv @StepArgs
     if ($LASTEXITCODE -ne 0) {
         Write-Log "$Label : FAILED (exit $LASTEXITCODE)"
         exit $LASTEXITCODE
