@@ -1,0 +1,24 @@
+# PostgreSQL for local/dev and parity with production.
+# From repo root: docker compose -f docker/docker-compose.yml up -d
+# App on the host uses DATABASE_URL or POSTGRES_* → localhost:5432
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: ai-news-aggregator-test-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-ai_news_aggregator}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

@@ -11,9 +11,9 @@ import yt_dlp
 from pydantic import BaseModel, ConfigDict, Field
 
 try:
-    from .cache import get_cached, set_cached
+    from .cache import get_cached, read_cached_ignore_ttl, set_cached
 except ImportError:
-    from cache import get_cached, set_cached
+    from cache import get_cached, read_cached_ignore_ttl, set_cached
 
 
 class ChannelVideo(BaseModel):
@@ -159,7 +159,11 @@ class YouTubeScraper:
         languages: List[str] = None
     ) -> Optional[Transcript]:
         """
-        Fetch transcript for a YouTube video using yt-dlp.
+        Fetch transcript for a YouTube video using yt-dlp (or cache only).
+
+        If a full transcript is already stored under ``.cache`` (``transcript_<id>.vtt``),
+        it is parsed and returned without calling yt-dlp or YouTube, even when the
+        entry would be considered stale for RSS/HTML TTL purposes.
         
         Args:
             video_id: YouTube video ID
@@ -173,6 +177,14 @@ class YouTubeScraper:
             languages = ['en']
         
         video_url = f"https://www.youtube.com/watch?v={video_id}"
+        cache_key = f"transcript_{video_id}"
+
+        cold_vtt = read_cached_ignore_ttl(cache_key, "vtt")
+        if cold_vtt:
+            transcript_text = self._parse_transcript(cold_vtt)
+            if transcript_text:
+                print(f"[YouTube] Transcript from disk cache (skipped yt-dlp): {video_id}")
+                return Transcript(text=transcript_text)
         
         try:
             # Configure yt-dlp to extract subtitles
@@ -220,8 +232,7 @@ class YouTubeScraper:
                 print(f"Transcript not available for video {video_id}")
                 return None
             
-            # Download and parse the transcript (with caching)
-            cache_key = f"transcript_{video_id}"
+            # Download and parse the transcript (with caching / TTL for refetch)
             cached_vtt = get_cached(cache_key, "vtt")
             
             if cached_vtt:

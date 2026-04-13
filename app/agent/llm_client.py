@@ -1,4 +1,4 @@
-"""Construct an OpenAI SDK client for cloud OpenAI, Ollama, or other compatible servers."""
+"""Construct an OpenAI SDK client for Ollama, cloud OpenAI, or other compatible servers."""
 
 from __future__ import annotations
 
@@ -15,8 +15,8 @@ from .config import (
 
 def get_chat_client() -> OpenAI:
     """
-    - ``openai`` (default): official API; requires ``OPENAI_API_KEY``.
-    - ``ollama``: local server; uses ``OLLAMA_BASE_URL`` (``.../v1``) and a dummy key.
+    - ``ollama`` (default): local server; uses ``OLLAMA_BASE_URL`` (``.../v1``) and a placeholder key.
+    - ``openai``: official API; requires ``OPENAI_API_KEY``.
     - If ``AGENT_OPENAI_BASE_URL`` is set, it overrides the default base URL for ``openai`` backend.
     """
     if AGENT_LLM_BACKEND == "ollama":
@@ -31,4 +31,11 @@ def get_chat_client() -> OpenAI:
     kwargs: dict = {}
     if AGENT_OPENAI_BASE_URL:
         kwargs["base_url"] = AGENT_OPENAI_BASE_URL.rstrip("/")
+    api_key = (os.environ.get("OPENAI_API_KEY") or "").strip()
+    if not api_key:
+        raise RuntimeError(
+            "AGENT_LLM_BACKEND=openai requires OPENAI_API_KEY in your `.env`. "
+            "For local Ollama (default), use AGENT_LLM_BACKEND=ollama and `ollama pull qwen3:14b`."
+        ) from None
+    kwargs["api_key"] = api_key
     return OpenAI(**kwargs)

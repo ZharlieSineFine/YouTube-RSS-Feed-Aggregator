@@ -37,23 +37,35 @@ DIGEST_SMTP_PASSWORD = os.environ.get("DIGEST_SMTP_PASSWORD", "")
 
 # From / To
 DIGEST_EMAIL_FROM = os.environ.get("DIGEST_EMAIL_FROM", "").strip()
-# Comma-separated list of recipients
+# Comma-separated list of recipients (legacy single digest — English ``summary`` + ``DIGEST_UI_LANGUAGE`` chrome)
 DIGEST_EMAIL_TO = os.environ.get("DIGEST_EMAIL_TO", "").strip()
+# Split digests: English body from ``Article.summary`` / Chinese from ``Article.summary_zh``
+DIGEST_EMAIL_TO_EN = os.environ.get("DIGEST_EMAIL_TO_EN", "").strip()
+DIGEST_EMAIL_TO_ZH = os.environ.get("DIGEST_EMAIL_TO_ZH", "").strip()
 
 # Max articles in one email (newest with a summary first).
 DIGEST_MAX_ARTICLES = _int("DIGEST_MAX_ARTICLES", 50)
 # If set, only include rows with published_at within the last N hours (UTC).
 DIGEST_SINCE_HOURS = _float_opt("DIGEST_SINCE_HOURS")
 
+# Email chrome (subject prefix, footer): "en" default, or "zh-cn" / "zh-hans" / "chinese" for Simplified Chinese strings.
+DIGEST_UI_LANGUAGE = os.environ.get("DIGEST_UI_LANGUAGE", "").strip().lower()
+
 
 def parse_recipients(raw: str) -> List[str]:
     return [p.strip() for p in raw.split(",") if p.strip()]
 
 
+def digest_use_split_recipients() -> bool:
+    """True if at least one of ``DIGEST_EMAIL_TO_EN`` / ``DIGEST_EMAIL_TO_ZH`` is non-empty."""
+    return bool(parse_recipients(DIGEST_EMAIL_TO_EN) or parse_recipients(DIGEST_EMAIL_TO_ZH))
+
+
 def smtp_ready() -> bool:
-    return bool(
-        DIGEST_SMTP_HOST
-        and DIGEST_EMAIL_FROM
-        and DIGEST_EMAIL_TO
-        and parse_recipients(DIGEST_EMAIL_TO)
-    )
+    if not (DIGEST_SMTP_HOST and DIGEST_EMAIL_FROM):
+        return False
+    if digest_use_split_recipients():
+        return bool(
+            parse_recipients(DIGEST_EMAIL_TO_EN) or parse_recipients(DIGEST_EMAIL_TO_ZH)
+        )
+    return bool(DIGEST_EMAIL_TO and parse_recipients(DIGEST_EMAIL_TO))

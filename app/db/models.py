@@ -35,12 +35,19 @@ class Article(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     source_id: Mapped[int] = mapped_column(ForeignKey("sources.id", ondelete="CASCADE"), index=True)
     title: Mapped[str] = mapped_column(String(1024))
+    # Simplified Chinese title for digest (optional; filled when summarizing zh-cn).
+    title_zh: Mapped[Optional[str]] = mapped_column(String(1024), nullable=True)
     url: Mapped[str] = mapped_column(String(2048), unique=True, index=True)
     published_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     content: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     extra_json: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     summary: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     summarized_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    # Simplified Chinese (or other) digest when using split recipients; English uses ``summary``.
+    summary_zh: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    summarized_at_zh: Mapped[Optional[datetime]] = mapped_column(
         DateTime(timezone=True), nullable=True
     )
 

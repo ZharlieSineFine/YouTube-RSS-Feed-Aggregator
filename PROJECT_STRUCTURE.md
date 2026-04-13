@@ -11,13 +11,16 @@ ai-news-aggregator-test/
 │   │   ├── system_prompt.py   # DEFAULT_SYSTEM_PROMPT (reader persona)
 │   │   ├── summarize.py       # LLM summaries → Article.summary
 │   │   └── __init__.py
+│   ├── daily/
+│   │   └── __main__.py        # Incremental ingest → no-updates email OR agent + digest send
 │   ├── digest/
 │   │   ├── config.py          # DIGEST_SMTP_*, DIGEST_EMAIL_*, DIGEST_MAX_ARTICLES
 │   │   ├── build.py           # Load rows with summary → HTML + plain text
+│   │   ├── no_updates.py      # Minimal email when ingest returns no new items
 │   │   ├── mailer.py          # smtplib send
 │   │   └── __init__.py
 │   ├── db/
-│   │   ├── models.py          # SQLAlchemy: Source, Article (+ summary)
+│   │   ├── models.py          # SQLAlchemy: Source, Article (+ summary, summary_zh, title_zh)
 │   │   ├── session.py         # Engine, init_db, session_scope
 │   │   ├── store.py           # persist_ingest_results(run_all output)
 │   │   └── __init__.py
@@ -29,10 +32,18 @@ ai-news-aggregator-test/
 │           ├── youtube.py     # YouTubeScraper (RSS + yt-dlp transcripts)
 │           ├── anthropic_news.py  # AnthropicScraper (3 RSS feeds + markdown)
 │           └── openai_news.py     # OpenAINewsScraper (HTML scraping + markdown)
+├── docs/
+│   └── WINDOWS_SCHEDULER.md   # Task Scheduler + run_daily_chain.ps1
+├── docker/
+│   ├── docker-compose.yml     # PostgreSQL 17 (dev / local parity)
+│   └── README.md              # compose up/down, env vars
+├── scripts/
+│   └── run_daily_chain.ps1    # uv run python -m app.daily (optional Task Scheduler)
 ├── .cache/                    # Cached HTTP responses (auto-generated)
-├── data/                      # Local SQLite (default: aggregator.db) — gitignored
+├── data/                      # Local SQLite when DATABASE_URL unset — gitignored
+├── env.example                # DATABASE_URL / POSTGRES_* template (copy to .env)
 ├── main.py                    # Application entry point
-├── pyproject.toml             # Dependencies (uv)
+├── pyproject.toml             # Dependencies (uv); includes psycopg for Postgres
 ├── README.md                  # Project overview
 └── YOUTUBE_USAGE.md           # YouTube scraper documentation
 ```
@@ -184,22 +195,30 @@ Key settings include `FETCH_LOOKBACK_HOURS`, `FIRST_RUN_LOOKBACK_HOURS`, `INCREM
 
 ### Database (`app/db`)
 
-- Default URL: `sqlite:///data/aggregator.db` (override with `DATABASE_URL`)
+- **SQLite (default):** `sqlite:///data/aggregator.db` when neither `DATABASE_URL` nor `POSTGRES_HOST` is set.
+- **PostgreSQL:** Set `DATABASE_URL` (generic `postgresql://` URLs are normalized to `postgresql+psycopg`) **or** set `POSTGRES_HOST` and optional `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_PORT`, `POSTGRES_DB`. Requires `psycopg` (see `pyproject.toml`).
+- **Docker:** `docker compose -f docker/docker-compose.yml up -d` runs Postgres 17 on port 5432; see `docker/README.md`.
 - `persist_ingest_results()` maps `run_all()` output into `Source` and `Article` rows (URL upsert)
 - `Article.summary` / `summarized_at` filled by `app/agent` (OpenAI; requires `OPENAI_API_KEY`)
 
 ### Agent (`app/agent`)
 
 - `python -m app.agent` — summarize articles missing a summary (newest first); `--all` for every pending row; `--dry-run`, `--force`, `-n`
-- **OpenAI:** `OPENAI_API_KEY`, optional `OPENAI_SUMMARY_MODEL`
-- **Local Ollama:** `AGENT_LLM_BACKEND=ollama`, `OLLAMA_MODEL` (default `qwen3:14b`), `ollama serve` + `ollama pull qwen3:14b`
+- **Default LLM:** local **Ollama** — `AGENT_LLM_BACKEND=ollama` (default), `OLLAMA_MODEL` (default `qwen3:14b`), `ollama serve` + `ollama pull qwen3:14b`
+- **Optional cloud OpenAI:** `AGENT_LLM_BACKEND=openai`, `OPENAI_API_KEY`, optional `OPENAI_SUMMARY_MODEL`
+- **`AGENT_SUMMARY_LANGUAGES`** — e.g. `en,zh-cn` fills **`Article.summary`** (English) and **`Article.summary_zh`** (Simplified Chinese). Legacy: **`AGENT_SUMMARY_LANGUAGE`** if the list is unset.
 - Edit `system_prompt.py` for tone; tune `AGENT_MAX_INPUT_CHARS` for long transcripts
 
 ### Digest email (`app/digest`)
 
 - `python -m app.digest preview` — print plain-text digest (no SMTP)
 - `python -m app.digest send` — email HTML + text via SMTP (`DIGEST_SMTP_*`, `DIGEST_EMAIL_FROM`, `DIGEST_EMAIL_TO`)
+- **Split inboxes:** `DIGEST_EMAIL_TO_EN` + `DIGEST_EMAIL_TO_ZH` — two sends: English body from `Article.summary`, Chinese from `Article.summary_zh` (subject/footer localized per send). Legacy single list: `DIGEST_EMAIL_TO` + optional `DIGEST_UI_LANGUAGE`.
 - Optional: `DIGEST_SINCE_HOURS`, `DIGEST_MAX_ARTICLES`, `DIGEST_SMTP_USE_SSL=1` for port 465
+
+### Scheduled runs (Windows)
+
+- See **`docs/WINDOWS_SCHEDULER.md`**: Task Scheduler calls **`scripts/run_daily_chain.ps1`**. Disable the task in Scheduler anytime, or add a repo-root **`schedule_disabled`** file to skip runs without removing the task.
 
 ## Usage
 
@@ -211,9 +230,6 @@ python -m app.ingest.runner
 python app/ingest/runner.py
 ```
 
-## Future Components (Planned)
+## Docker / PostgreSQL
 
-```
-docker/
-└── docker-compose.yml     # PostgreSQL container setup
-```
+See `docker/README.md` and `env.example`. The Compose file only runs the database; the app connects from the host.

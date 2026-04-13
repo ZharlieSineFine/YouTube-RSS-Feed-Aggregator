@@ -16,3 +16,10 @@ wheels/
 # Local SQLite and app data directory
 data/
 *.db
+
+# Debug session / NDJSON traces (not source)
+debug-*.log
+.cursor/debug.log
+
+# Pause scheduled runs without changing Task Scheduler (see docs/WINDOWS_SCHEDULER.md)
+schedule_disabled

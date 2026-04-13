@@ -90,6 +90,21 @@ def get_cached(url: str, suffix: str = "") -> Optional[str]:
     return None
 
 
+def read_cached_ignore_ttl(url: str, suffix: str = "") -> Optional[str]:
+    """
+    Read cached file if it exists, without applying CACHE_MAX_AGE_HOURS.
+
+    Use when reusing stored data avoids expensive or rate-limited upstream calls
+    (e.g. skip yt-dlp when a transcript ``.vtt`` is already on disk).
+    """
+    if not is_cache_enabled():
+        return None
+    cache_path = get_cache_dir() / get_cache_key(url, suffix)
+    if not cache_path.exists():
+        return None
+    return cache_path.read_text(encoding="utf-8")
+
+
 def set_cached(url: str, content: str, suffix: str = "") -> None:
     """
     Cache content for a URL.

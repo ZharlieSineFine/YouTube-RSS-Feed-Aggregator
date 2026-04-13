@@ -171,16 +171,17 @@ def fetch_openai(
 def run_all(
     hours_back: int | None = None,
     incremental: bool | None = None,
-) -> Dict[str, List[Any]]:
+) -> Tuple[Dict[str, List[Any]], int]:
     """
-    Run all scrapers and return collected content.
+    Run all scrapers and return collected content plus DB insert count.
 
     Args:
         hours_back: Legacy only — when INCREMENTAL_INGEST is False, rolling window in hours.
         incremental: Override INCREMENTAL_INGEST from config when not None.
 
     Returns:
-        Dictionary with keys 'youtube', 'anthropic', 'openai'.
+        ``(results, inserted_rows)`` — ``results`` has keys ``youtube``, ``anthropic``, ``openai``.
+        ``inserted_rows`` is how many new DB rows were inserted (0 if persist skipped or failed).
     """
     use_incremental = INCREMENTAL_INGEST if incremental is None else incremental
     hb = FETCH_LOOKBACK_HOURS if use_incremental else (hours_back if hours_back is not None else HOURS_BACK_LEGACY)
@@ -207,6 +208,7 @@ def run_all(
     if use_incremental and state is not None:
         save_state(state)
 
+    n_new = 0
     if PERSIST_TO_DB:
         try:
             try:
@@ -230,11 +232,11 @@ def run_all(
     print(f"  OpenAI articles:    {len(results['openai'])}")
     print(f"  Total items:        {sum(len(v) for v in results.values())}")
 
-    return results
+    return results, n_new
 
 
 if __name__ == "__main__":
-    results = run_all()
+    results, _ = run_all()
 
     if results["youtube"]:
         print("\n" + "=" * 60)

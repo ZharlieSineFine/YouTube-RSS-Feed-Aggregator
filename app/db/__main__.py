@@ -10,8 +10,8 @@ from .session import get_database_url, init_db
 
 
 def _sanitize_database_url(url: str) -> str:
-    """Hide password in Postgres-style URLs for console output."""
-    if not url or not url.startswith(("postgresql://", "postgres://")):
+    """Hide password in database URLs for console output (Postgres, including ``postgresql+psycopg``)."""
+    if not url:
         return url
     parsed = urlparse(url)
     if not parsed.password:
@@ -86,18 +86,29 @@ def main() -> None:
         ts = r["published_at"].isoformat() if r["published_at"] else "—"
         print(f"[{r['source_kind']}] {ts}")
         print(f"  {r['title'][:120]}{'…' if len(r['title']) > 120 else ''}")
+        if r.get("title_zh"):
+            print(f"  title_zh: {r['title_zh'][:120]}{'…' if len(r['title_zh']) > 120 else ''}")
         print(f"  {r['url']}")
         print(f"  content: {r['content_chars']} chars")
         if args.summaries:
             if r.get("summary"):
                 sat = r["summarized_at"]
                 sat_s = sat.isoformat() if sat else "—"
-                print(f"  summarized_at: {sat_s}")
-                print("  summary:")
+                print(f"  summarized_at (en): {sat_s}")
+                print("  summary (en):")
                 for line in (r["summary"] or "").splitlines():
                     print(f"    {line}")
             else:
-                print("  summary: (none yet)")
+                print("  summary (en): (none yet)")
+            if r.get("summary_zh"):
+                satz = r["summarized_at_zh"]
+                satz_s = satz.isoformat() if satz else "—"
+                print(f"  summarized_at (zh): {satz_s}")
+                print("  summary (zh):")
+                for line in (r["summary_zh"] or "").splitlines():
+                    print(f"    {line}")
+            else:
+                print("  summary (zh): (none yet)")
         print()
 
 

@@ -39,7 +39,8 @@ def main(argv: list[str] | None = None) -> None:
             print("hours must be >= 1", file=sys.stderr)
             raise SystemExit(2)
     print(f"Backfill: rolling window = last {hours} hours (non-incremental), then persist.\n")
-    run_all(hours_back=hours, incremental=False)
+    _results, inserted = run_all(hours_back=hours, incremental=False)
+    print(f"\nBackfill inserted {inserted} new row(s).")
 
 
 if __name__ == "__main__":

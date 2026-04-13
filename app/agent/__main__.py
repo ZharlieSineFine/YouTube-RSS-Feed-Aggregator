@@ -1,9 +1,10 @@
 """CLI: ``python -m app.agent`` — summarize articles in the database.
 
-**OpenAI (default):** set ``OPENAI_API_KEY`` (e.g. in ``.env``).
+**Ollama (default):** ``ollama serve``, ``ollama pull qwen3:14b`` — uses ``AGENT_LLM_BACKEND=ollama`` (default).
 
-**Ollama (local):** ``ollama pull qwen3:14b``, then ``AGENT_LLM_BACKEND=ollama``
-(optional: ``OLLAMA_MODEL=...`` if the tag differs).
+**OpenAI API (optional):** set ``AGENT_LLM_BACKEND=openai`` and ``OPENAI_API_KEY`` in ``.env``.
+
+**Languages:** set ``AGENT_SUMMARY_LANGUAGES=en,zh-cn`` in ``.env`` to fill English (``Article.summary``) and Simplified Chinese (``Article.summary_zh``). Legacy: ``AGENT_SUMMARY_LANGUAGE=zh-cn`` if ``AGENT_SUMMARY_LANGUAGES`` is unset.
 
 Examples::
 

@@ -6,9 +6,16 @@ refetch after a few hours. Use CACHE_MAX_AGE_HOURS=0 only if you want no expiry.
 Disable caching entirely: USE_CACHE=0
 
 Incremental ingest: watermarks in .cache/ingest_state.json — delete that file to
-reset "first run" (bootstrap window only).
+reset "first run" (bootstrap window only). Each scheduled run only returns items
+newer than the last watermark (plus FETCH_LOOKBACK_HOURS overlap for RSS/HTML).
 
-Database: set PERSIST_TO_DB=0 to skip writing ingest results to SQLite (see app/db/).
+For a **daily** Task Scheduler job (~24h), keep FETCH_LOOKBACK_HOURS larger than
+the gap between runs (default 14 days is safe). For the **email digest** window,
+set ``DIGEST_SINCE_HOURS=24`` in ``.env`` so ``python -m app.digest send`` only
+lists articles published in roughly the last day (when you run the full chain via
+``python -m app.daily``).
+
+Database: set PERSIST_TO_DB=0 to skip writing ingest results to the DB (see app/db/).
 """
 
 from __future__ import annotations

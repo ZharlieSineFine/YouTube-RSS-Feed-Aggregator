@@ -44,6 +44,7 @@ def recent_articles(limit: int = 20) -> List[Dict[str, Any]]:
                 {
                     "id": art.id,
                     "title": art.title,
+                    "title_zh": art.title_zh,
                     "url": art.url,
                     "published_at": art.published_at,
                     "source_kind": src.kind,
@@ -53,6 +54,9 @@ def recent_articles(limit: int = 20) -> List[Dict[str, Any]]:
                     "summary_chars": len(art.summary) if art.summary else 0,
                     "summary": art.summary,
                     "summarized_at": art.summarized_at,
+                    "has_summary_zh": bool(art.summary_zh),
+                    "summary_zh": art.summary_zh,
+                    "summarized_at_zh": art.summarized_at_zh,
                 }
             )
         return out
