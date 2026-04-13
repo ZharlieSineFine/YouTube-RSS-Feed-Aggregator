@@ -5,24 +5,24 @@
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              EXTERNAL SOURCES                                │
-├─────────────────┬─────────────────┬─────────────────┬───────────────────────┤
-│  YouTube RSS    │  Anthropic RSS  │  OpenAI News    │  Substack RSS         │
-│  (Channel Feed) │  (3 Feeds)      │  (HTML Scrape)  │  (Newsletter Feed)    │
-└────────┬────────┴────────┬────────┴────────┬────────┴──────────┬────────────┘
-         │                 │                 │                   │
-         ▼                 ▼                 ▼                   ▼
+├──────────────────────┬──────────────────────┬───────────────────────────────┤
+│  YouTube RSS         │  Anthropic RSS       │  OpenAI News                  │
+│  (Channel Feed)      │  (3 Feeds)           │  (HTML Scrape)                │
+└──────────┬───────────┴──────────┬───────────┴──────────┬────────────────────┘
+           │                      │                      │
+           ▼                      ▼                      ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              SCRAPERS LAYER                                  │
-├─────────────────┬─────────────────┬─────────────────┬───────────────────────┤
-│ YouTubeScraper  │ AnthropicScraper│ OpenAINewsScraper│ SubstackScraper      │
-│ ─────────────── │ ─────────────── │ ─────────────────│ ───────────────────  │
-│ • RSS parsing   │ • News feed     │ • Playwright     │ • RSS parsing        │
-│ • yt-dlp        │ • Engineering   │ • HTML scraping  │ • Date filtering     │
-│   transcripts   │ • Research      │ • Date extraction│                      │
-│                 │ • Docling→MD    │ • Docling→MD     │                      │
-└────────┬────────┴────────┬────────┴────────┬────────┴──────────┬────────────┘
-         │                 │                 │                   │
-         ▼                 ▼                 ▼                   ▼
+├──────────────────────┬──────────────────────┬───────────────────────────────┤
+│ YouTubeScraper       │ AnthropicScraper     │ OpenAINewsScraper             │
+│ ──────────────────── │ ──────────────────── │ ───────────────────────────── │
+│ • RSS parsing        │ • News feed          │ • Playwright                  │
+│ • yt-dlp transcripts │ • Engineering        │ • HTML scraping               │
+│                      │ • Research           │ • Date extraction             │
+│                      │ • Docling→MD         │ • Docling→MD                  │
+└──────────┬───────────┴──────────┬───────────┴──────────┬────────────────────┘
+           │                      │                      │
+           ▼                      ▼                      ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              CACHING LAYER                                   │
 │                              (cache.py)                                      │
@@ -34,64 +34,72 @@
 │                                                                              │
 │  Environment: USE_CACHE=1 (enabled by default)                              │
 └─────────────────────────────────────────────────────────────────────────────┘
-         │
-         ▼
+           │
+           ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              DATA MODELS (Pydantic)                          │
-├─────────────────┬─────────────────┬─────────────────┬───────────────────────┤
-│ ChannelVideo    │ AnthropicArticle│ OpenAIArticle   │ SubstackArticle       │
-│ ─────────────── │ ─────────────── │ ─────────────── │ ───────────────────── │
-│ • title         │ • title         │ • title         │ • title               │
-│ • url           │ • url           │ • url           │ • url                 │
-│ • video_id      │ • guid          │ • published_at  │ • guid                │
-│ • published_at  │ • published_at  │ • description   │ • published_at        │
-│ • description   │ • description   │ • content (MD)  │ • description         │
-│ • channel_id    │ • category      │                 │ • content             │
-│ • transcript    │ • feed_type     │                 │ • author              │
-│                 │ • content (MD)  │                 │                       │
-│ Transcript      │                 │                 │                       │
-│ ─────────────── │                 │                 │                       │
-│ • text          │                 │                 │                       │
-└────────┬────────┴────────┬────────┴────────┬────────┴──────────┬────────────┘
-         │                 │                 │                   │
-         └─────────────────┴────────┬────────┴───────────────────┘
-                                    ▼
+├──────────────────────┬──────────────────────┬───────────────────────────────┤
+│ ChannelVideo         │ AnthropicArticle     │ OpenAIArticle                 │
+│ ──────────────────── │ ──────────────────── │ ───────────────────────────── │
+│ • title              │ • title              │ • title                       │
+│ • url                │ • url                │ • url                         │
+│ • video_id           │ • guid               │ • published_at                │
+│ • published_at       │ • published_at       │ • description                 │
+│ • description        │ • description        │ • content (MD)                │
+│ • channel_id         │ • category           │                               │
+│ • transcript         │ • feed_type          │                               │
+│                      │ • content (MD)       │                               │
+│ Transcript           │                      │                               │
+│ ──────────────────── │                      │                               │
+│ • text               │                      │                               │
+└──────────┬───────────┴──────────┬───────────┴──────────┬────────────────────┘
+           │                      │                      │
+           └──────────────────────┴──────────┬───────────┘
+                                             ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                              ORCHESTRATION                                   │
 │                              (runner.py)                                     │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  run_all(hours_back=24) → {                                                 │
+│  run_all() → {                                                               │
 │      'youtube': List[ChannelVideo],                                         │
 │      'anthropic': List[AnthropicArticle],                                   │
 │      'openai': List[OpenAIArticle]                                          │
 │  }                                                                           │
 │                                                                              │
-│  Configuration (config.py):                                                  │
-│  • HOURS_BACK = 300                                                         │
-│  • YOUTUBE_CHANNELS = ["UC11aHtNnc5bEPLI4jf6mnYg", ...]                     │
+│  Configuration (config.py): incremental windows, YOUTUBE_CHANNELS,          │
+│  PERSIST_TO_DB, DATABASE_URL (optional Postgres)                             │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
-         │
-         ▼
+           │
+           ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         PERSISTENCE (app/db)                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  SQLAlchemy: Source, Article  |  store.persist_ingest_results()            │
+│  Default: sqlite:///data/aggregator.db  |  URL-keyed upsert                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+           │
+           ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                         FUTURE COMPONENTS (Planned)                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                   │
-│  │   Database   │    │    Agent     │    │    Email     │                   │
-│  │  (Postgres)  │    │   (OpenAI)   │    │   (SMTP)     │                   │
-│  ├──────────────┤    ├──────────────┤    ├──────────────┤                   │
-│  │ • Source     │    │ • System     │    │ • HTML       │                   │
-│  │ • Article    │    │   Prompt     │    │   Digest     │                   │
-│  │ • Summary    │    │ • Summarize  │    │ • Daily      │                   │
-│  │ • Digest     │    │ • Insights   │    │   Schedule   │                   │
-│  └──────────────┘    └──────────────┘    └──────────────┘                   │
+│  ┌──────────────┐    ┌──────────────┐                                       │
+│  │    Agent     │    │    Email     │                                       │
+│  │   (OpenAI)   │    │   (SMTP)     │                                       │
+│  ├──────────────┤    ├──────────────┤                                       │
+│  │ • System     │    │ • HTML       │                                       │
+│  │   Prompt     │    │   Digest     │                                       │
+│  │ • Summarize  │    │ • Daily      │                                       │
+│  │ • Insights   │    │   Schedule   │                                       │
+│  └──────────────┘    └──────────────┘                                       │
 │                                                                              │
-│  Docker: PostgreSQL container for persistent storage                         │
+│  Docker: PostgreSQL container for production storage                         │
 │  Deploy: Render with 24-hour scheduled runs                                  │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
+```
 
 
 ## Data Flow Diagram
@@ -123,7 +131,7 @@
          │                      │                      │
          ▼                      ▼                      ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│  YouTube RSS    │    │  GitHub RSS     │    │  openai.com     │
+│  YouTube RSS    │    │  Anthropic RSS  │    │  openai.com     │
 │  + yt-dlp API   │    │  (3 feeds)      │    │  (Playwright)   │
 └────────┬────────┘    └────────┬────────┘    └────────┬────────┘
          │                      │                      │
@@ -151,15 +159,18 @@
 ai-news-aggregator-test/
 │
 ├── app/
+│   ├── db/
+│   │   ├── models.py              # SQLAlchemy Source, Article
+│   │   ├── session.py             # Engine, init_db
+│   │   └── store.py               # persist_ingest_results
 │   └── ingest/
-│       ├── config.py              # HOURS_BACK, YOUTUBE_CHANNELS
+│       ├── config.py              # Ingest + PERSIST_TO_DB, YOUTUBE_CHANNELS
 │       ├── runner.py              # Main orchestrator
 │       └── scrapers/
 │           ├── cache.py           # HTTP response caching
 │           ├── youtube.py         # YouTubeScraper class
 │           ├── anthropic_news.py  # AnthropicScraper class
-│           ├── openai_news.py     # OpenAINewsScraper class
-│           └── substack.py        # SubstackScraper class
+│           └── openai_news.py     # OpenAINewsScraper class
 │
 ├── .cache/                        # Cached responses (auto-generated)
 │   ├── *.xml                      # RSS feeds
@@ -191,8 +202,8 @@ ai-news-aggregator-test/
 │  Transcripts:    yt-dlp                                         │
 │  MD Conversion:  docling                                        │
 │                                                                  │
+│  Persistence:    SQLAlchemy 2 (SQLite default; Postgres via URL) │
 │  Future:                                                         │
-│  ├── Database:   PostgreSQL + SQLAlchemy                        │
 │  ├── LLM:        OpenAI API                                     │
 │  ├── Email:      smtplib (SMTP)                                 │
 │  └── Deploy:     Docker + Render                                │

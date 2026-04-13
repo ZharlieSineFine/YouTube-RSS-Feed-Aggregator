@@ -2,6 +2,7 @@
 
 import hashlib
 import os
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -12,10 +13,28 @@ DEFAULT_CACHE_DIR = ".cache"
 # Environment variable to control caching
 USE_CACHE_ENV = "USE_CACHE"
 
+# Max age for cached files (hours). After this, treat as miss and refetch.
+# Set CACHE_MAX_AGE_HOURS=0 to disable TTL (cache forever while USE_CACHE=1).
+# Stale RSS/HTML snapshots otherwise cause "0 results" when dates fall outside HOURS_BACK.
+CACHE_MAX_AGE_HOURS_ENV = "CACHE_MAX_AGE_HOURS"
+_DEFAULT_MAX_AGE_HOURS = 6.0
+
 
 def is_cache_enabled() -> bool:
     """Check if caching is enabled via environment variable."""
     return os.environ.get(USE_CACHE_ENV, "1") == "1"
+
+
+def _max_cache_age_seconds() -> Optional[float]:
+    """Return max cache age in seconds, or None if TTL is disabled."""
+    raw = os.environ.get(CACHE_MAX_AGE_HOURS_ENV, str(_DEFAULT_MAX_AGE_HOURS))
+    try:
+        hours = float(raw)
+    except ValueError:
+        hours = _DEFAULT_MAX_AGE_HOURS
+    if hours <= 0:
+        return None
+    return hours * 3600.0
 
 
 def get_cache_dir() -> Path:
@@ -59,6 +78,12 @@ def get_cached(url: str, suffix: str = "") -> Optional[str]:
     cache_path = get_cache_dir() / get_cache_key(url, suffix)
     
     if cache_path.exists():
+        max_age = _max_cache_age_seconds()
+        if max_age is not None:
+            age = time.time() - cache_path.stat().st_mtime
+            if age > max_age:
+                print(f"[CACHE STALE {age/3600:.1f}h old] {url[:50]}...")
+                return None
         print(f"[CACHE HIT] {url[:50]}...")
         return cache_path.read_text(encoding='utf-8')
     

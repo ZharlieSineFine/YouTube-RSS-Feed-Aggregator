@@ -4,7 +4,7 @@
     <title>Anthropic News</title>
     <link>https://www.anthropic.com/news</link>
     <description>Latest updates from Anthropic's newsroom</description>
-    <atom:link href="https://www.anthropic.com/feeds/feed_anthropic_news.xml" rel="self"/>
+    <atom:link href="https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml" rel="self"/>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <image>
@@ -13,7 +13,191 @@
       <link>https://www.anthropic.com/news</link>
     </image>
     <language>en</language>
-    <lastBuildDate>Wed, 04 Feb 2026 18:15:23 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 03:02:10 +0000</lastBuildDate>
+    <item>
+      <title>Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute</title>
+      <link>https://www.anthropic.com/news/google-broadcom-partnership-compute</link>
+      <description>Anthropic expands partnership with Google and Broadcom for multiple gigawatts of next-generation compute</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/google-broadcom-partnership-compute</guid>
+      <category>Announcements</category>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Australian government and Anthropic sign MOU for AI safety and research</title>
+      <link>https://www.anthropic.com/news/australia-MOU</link>
+      <description>Australian government and Anthropic sign MOU for AI safety and research</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/australia-MOU</guid>
+      <category>Announcements</category>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic invests $100 million into the Claude Partner Network</title>
+      <link>https://www.anthropic.com/news/claude-partner-network</link>
+      <description>Anthropic invests $100 million into the Claude Partner Network</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/claude-partner-network</guid>
+      <category>Announcements</category>
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Introducing The Anthropic Institute</title>
+      <link>https://www.anthropic.com/news/the-anthropic-institute</link>
+      <description>Introducing The Anthropic Institute</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/the-anthropic-institute</guid>
+      <category>Announcements</category>
+      <pubDate>Wed, 11 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Sydney will become Anthropic’s fourth office in Asia-Pacific</title>
+      <link>https://www.anthropic.com/news/sydney-fourth-office-asia-pacific</link>
+      <description>Sydney will become Anthropic’s fourth office in Asia-Pacific</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/sydney-fourth-office-asia-pacific</guid>
+      <category>Announcements</category>
+      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Partnering with Mozilla to improve Firefox’s security</title>
+      <link>https://www.anthropic.com/news/mozilla-firefox-security</link>
+      <description>Partnering with Mozilla to improve Firefox’s security</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/mozilla-firefox-security</guid>
+      <category>Policy</category>
+      <pubDate>Fri, 06 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Where things stand with the Department of War</title>
+      <link>https://www.anthropic.com/news/where-stand-department-war</link>
+      <description>Where things stand with the Department of War</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/where-stand-department-war</guid>
+      <category>Announcements</category>
+      <pubDate>Thu, 05 Mar 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Statement on the comments from Secretary of War Pete Hegseth</title>
+      <link>https://www.anthropic.com/news/statement-comments-secretary-war</link>
+      <description>Statement on the comments from Secretary of War Pete Hegseth</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/statement-comments-secretary-war</guid>
+      <category>Announcements</category>
+      <pubDate>Fri, 27 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Statement from Dario Amodei on our discussions with the Department of War</title>
+      <link>https://www.anthropic.com/news/statement-department-of-war</link>
+      <description>Statement from Dario Amodei on our discussions with the Department of War</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/statement-department-of-war</guid>
+      <category>Announcements</category>
+      <pubDate>Thu, 26 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic acquires Vercept to advance Claude's computer use capabilities</title>
+      <link>https://www.anthropic.com/news/acquires-vercept</link>
+      <description>Anthropic acquires Vercept to advance Claude's computer use capabilities</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/acquires-vercept</guid>
+      <category>Announcements</category>
+      <pubDate>Wed, 25 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic’s Responsible Scaling Policy: Version 3.0</title>
+      <link>https://www.anthropic.com/news/responsible-scaling-policy-v3</link>
+      <description>Anthropic’s Responsible Scaling Policy: Version 3.0</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/responsible-scaling-policy-v3</guid>
+      <category>Policy</category>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Detecting and preventing distillation attacks</title>
+      <link>https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks</link>
+      <description>Detecting and preventing distillation attacks</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks</guid>
+      <category>Announcements</category>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Making frontier cybersecurity capabilities available to defenders</title>
+      <link>https://www.anthropic.com/news/claude-code-security</link>
+      <description>Making frontier cybersecurity capabilities available to defenders</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/claude-code-security</guid>
+      <category>Announcements</category>
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic and Infosys collaborate to build AI agents for telecommunications and other regulated industries</title>
+      <link>https://www.anthropic.com/news/anthropic-infosys</link>
+      <description>Anthropic and Infosys collaborate to build AI agents for telecommunications and other regulated industries</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/anthropic-infosys</guid>
+      <category>Announcements</category>
+      <pubDate>Tue, 17 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic and the Government of Rwanda sign MOU for AI in health and education</title>
+      <link>https://www.anthropic.com/news/anthropic-rwanda-mou</link>
+      <description>Anthropic and the Government of Rwanda sign MOU for AI in health and education</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/anthropic-rwanda-mou</guid>
+      <category>Announcements</category>
+      <pubDate>Tue, 17 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Introducing Claude Sonnet 4.6</title>
+      <link>https://www.anthropic.com/news/claude-sonnet-4-6</link>
+      <description>Introducing Claude Sonnet 4.6</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/claude-sonnet-4-6</guid>
+      <category>Product</category>
+      <pubDate>Tue, 17 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic opens Bengaluru office and announces new partnerships across India</title>
+      <link>https://www.anthropic.com/news/bengaluru-office-partnerships-across-india</link>
+      <description>Anthropic opens Bengaluru office and announces new partnerships across India</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/bengaluru-office-partnerships-across-india</guid>
+      <category>Announcements</category>
+      <pubDate>Mon, 16 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Chris Liddell appointed to Anthropic’s board of directors</title>
+      <link>https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board</link>
+      <description>Chris Liddell appointed to Anthropic’s board of directors</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board</guid>
+      <category>Announcements</category>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic partners with CodePath to bring Claude to the US’s largest collegiate computer science program</title>
+      <link>https://www.anthropic.com/news/anthropic-codepath-partnership</link>
+      <description>Anthropic partners with CodePath to bring Claude to the US’s largest collegiate computer science program</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/anthropic-codepath-partnership</guid>
+      <category>Announcements</category>
+      <pubDate>Fri, 13 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic is donating $20 million to Public First Action</title>
+      <link>https://www.anthropic.com/news/donate-public-first-action</link>
+      <description>Anthropic is donating $20 million to Public First Action</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/donate-public-first-action</guid>
+      <category>Policy</category>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Anthropic raises $30 billion in Series G funding at $380 billion post-money valuation</title>
+      <link>https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation</link>
+      <description>Anthropic raises $30 billion in Series G funding at $380 billion post-money valuation</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation</guid>
+      <category>Announcements</category>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Covering electricity price increases from our data centers</title>
+      <link>https://www.anthropic.com/news/covering-electricity-price-increases</link>
+      <description>Covering electricity price increases from our data centers</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/covering-electricity-price-increases</guid>
+      <category>Policy</category>
+      <pubDate>Wed, 11 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Introducing Claude Opus 4.6</title>
+      <link>https://www.anthropic.com/news/claude-opus-4-6</link>
+      <description>Introducing Claude Opus 4.6</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/claude-opus-4-6</guid>
+      <category>Announcements</category>
+      <pubDate>Thu, 05 Feb 2026 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Claude is a space to think</title>
       <link>https://www.anthropic.com/news/claude-is-a-space-to-think</link>
@@ -359,19 +543,19 @@
       <pubDate>Mon, 06 Oct 2025 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Enabling Claude Code to work more autonomously</title>
-      <link>https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously</link>
-      <description>Enabling Claude Code to work more autonomously</description>
-      <guid isPermaLink="false">https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously</guid>
-      <category>Product</category>
-      <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
-    </item>
-    <item>
       <title>Introducing Claude Sonnet 4.5</title>
       <link>https://www.anthropic.com/news/claude-sonnet-4-5</link>
       <description>Introducing Claude Sonnet 4.5</description>
       <guid isPermaLink="false">https://www.anthropic.com/news/claude-sonnet-4-5</guid>
       <category>Announcements</category>
+      <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Enabling Claude Code to work more autonomously</title>
+      <link>https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously</link>
+      <description>Enabling Claude Code to work more autonomously</description>
+      <guid isPermaLink="false">https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously</guid>
+      <category>Product</category>
       <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
     </item>
     <item>

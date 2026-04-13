@@ -4,7 +4,6 @@ import logging
 import warnings
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional
-import json
 import os
 import re
 import tempfile
@@ -21,11 +20,6 @@ try:
     from .cache import get_cached, set_cached
 except ImportError:
     from cache import get_cached, set_cached
-
-# #region agent log
-LOG_PATH = r"c:\Cursor_Projects\ai-news-aggregator-test\.cursor\debug.log"
-def _dbg(hyp, loc, msg, data): open(LOG_PATH, "a").write(json.dumps({"hypothesisId": hyp, "location": loc, "message": msg, "data": data, "timestamp": datetime.now().isoformat()}) + "\n")
-# #endregion
 
 
 class OpenAIArticle(BaseModel):
@@ -180,10 +174,6 @@ class OpenAINewsScraper:
                 }
             """)
             
-            # #region agent log
-            _dbg("SCRAPE", "openai_news.py:fetch", "articles_found", {"count": len(articles_data), "sample": articles_data[:3] if articles_data else []})
-            # #endregion
-            
             browser.close()
         
         # Parse articles and filter by time
@@ -191,26 +181,14 @@ class OpenAINewsScraper:
         now = datetime.now(timezone.utc)
         cutoff_time = now - timedelta(hours=hours_back)
         
-        # #region agent log
-        _dbg("A", "openai_news.py:fetch_articles", "time_filter", {"now": now.isoformat(), "cutoff": cutoff_time.isoformat(), "hours_back": hours_back, "total_articles": len(articles_data)})
-        # #endregion
-        
         for item in articles_data:
             # Parse date from the extracted date string (e.g., "Jan 18, 2026")
             date_str = item.get('dateStr', '')
             published_at = self._parse_date(date_str)
             
-            # #region agent log
-            _dbg("SCRAPE", "openai_news.py:fetch", "parsed_date", {"title": item.get('title', '')[:50], "dateStr": date_str, "parsed": published_at.isoformat() if published_at else None})
-            # #endregion
-            
             # Skip articles without a valid date (we can't filter by time)
             if published_at is None:
                 continue
-            
-            # #region agent log
-            _dbg("A", "openai_news.py:fetch_articles", "entry_filter", {"title": item['title'][:50], "published": published_at.isoformat(), "passes_filter": published_at >= cutoff_time})
-            # #endregion
             
             # Filter by time window
             if published_at < cutoff_time:
@@ -273,23 +251,36 @@ class OpenAINewsScraper:
         # Check cache first for HTML
         cached_html = get_cached(url, "html")
         
+        # Invalidate cache if it contains an error page
+        if cached_html and "Application error:" in cached_html:
+            cached_html = None  # Force refetch
+        
         if cached_html:
             html_content = cached_html
         else:
             # Use Playwright to fetch the HTML (bypasses Cloudflare protection)
             with sync_playwright() as p:
-                browser = p.chromium.launch(headless=True)
+                browser = p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
                 context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                    viewport={"width": 1920, "height": 1080},
+                    java_script_enabled=True,
                 )
                 page = context.new_page()
-                page.goto(url, wait_until="load", timeout=60000)
-                page.wait_for_timeout(2000)
+                # Use domcontentloaded (faster than networkidle which can hang)
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                # Wait for actual article content (h1 heading) - this is the key signal
+                try:
+                    page.wait_for_selector("h1", timeout=15000)
+                except:
+                    # Fallback: wait fixed time if no h1 found
+                    page.wait_for_timeout(5000)
                 html_content = page.content()
                 browser.close()
             
-            # Cache the HTML
-            set_cached(url, html_content, "html")
+            # Only cache if NOT an error page
+            if "Application error:" not in html_content:
+                set_cached(url, html_content, "html")
         
         # Save HTML to temp file and convert with docling
         with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False, encoding='utf-8') as f:
@@ -299,7 +290,8 @@ class OpenAINewsScraper:
         try:
             converter = DocumentConverter()
             result = converter.convert(temp_path)
-            return result.document.export_to_markdown()
+            markdown = result.document.export_to_markdown()
+            return markdown
         finally:
             os.unlink(temp_path)
     

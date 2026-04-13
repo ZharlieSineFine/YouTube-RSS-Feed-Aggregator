@@ -8,3 +8,11 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Secrets and local environment
+.env
+.env.local
+
+# Local SQLite and app data directory
+data/
+*.db
