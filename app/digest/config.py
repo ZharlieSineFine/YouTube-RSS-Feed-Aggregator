@@ -23,6 +23,13 @@ def _float_opt(name: str) -> float | None:
         return None
 
 
+def _env_bool(name: str, default: bool) -> bool:
+    v = os.environ.get(name)
+    if v is None:
+        return default
+    return v.strip().lower() not in ("0", "false", "no", "")
+
+
 # --- SMTP (required to send; preview works without) ---
 DIGEST_SMTP_HOST = os.environ.get("DIGEST_SMTP_HOST", "").strip()
 DIGEST_SMTP_PORT = _int("DIGEST_SMTP_PORT", 587)
@@ -45,8 +52,12 @@ DIGEST_EMAIL_TO_ZH = os.environ.get("DIGEST_EMAIL_TO_ZH", "").strip()
 
 # Max articles in one email (newest with a summary first).
 DIGEST_MAX_ARTICLES = _int("DIGEST_MAX_ARTICLES", 50)
-# If set, only include rows with published_at within the last N hours (UTC).
+# If set, only include rows with published_at within the last N hours (UTC),
+# optionally floored to start of yesterday UTC (see DIGEST_SINCE_STRICT_ROLLING).
 DIGEST_SINCE_HOURS = _float_opt("DIGEST_SINCE_HOURS")
+# If false (default): effective cutoff is min(now - N hours, start of yesterday UTC) so
+# date-only midnight timestamps are not dropped from the digest. If true: strict rolling window only.
+DIGEST_SINCE_STRICT_ROLLING = _env_bool("DIGEST_SINCE_STRICT_ROLLING", False)
 
 # Email chrome (subject prefix, footer): "en" default, or "zh-cn" / "zh-hans" / "chinese" for Simplified Chinese strings.
 DIGEST_UI_LANGUAGE = os.environ.get("DIGEST_UI_LANGUAGE", "").strip().lower()

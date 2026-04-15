@@ -13,7 +13,15 @@
       <link>https://www.anthropic.com/research</link>
     </image>
     <language>en</language>
-    <lastBuildDate>Mon, 13 Apr 2026 14:32:26 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Apr 2026 03:40:56 +0000</lastBuildDate>
+    <item>
+      <title>Apr 14, 2026AlignmentAutomated Alignment Researchers: Using large language models to scale scalable oversight</title>
+      <link>https://www.anthropic.com/research/automated-alignment-researchers</link>
+      <description>Apr 14, 2026AlignmentAutomated Alignment Researchers: Using large language models to scale scalable oversight</description>
+      <guid isPermaLink="false">https://www.anthropic.com/research/automated-alignment-researchers</guid>
+      <category>Research</category>
+      <pubDate>Tue, 14 Apr 2026 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Apr 9, 2026PolicyTrustworthy agents in practice</title>
       <link>https://www.anthropic.com/research/trustworthy-agents</link>
@@ -108,15 +116,7 @@
       <description>Economic Research</description>
       <guid isPermaLink="false">https://www.anthropic.com/research/team/economic-research</guid>
       <category>Research</category>
-      <pubDate>Wed, 11 Dec 2024 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Societal Impacts</title>
-      <link>https://www.anthropic.com/research/team/societal-impacts</link>
-      <description>Societal Impacts</description>
-      <guid isPermaLink="false">https://www.anthropic.com/research/team/societal-impacts</guid>
-      <category>Research</category>
-      <pubDate>Fri, 04 Oct 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 28 Jul 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Alignment</title>
@@ -124,7 +124,15 @@
       <description>Alignment</description>
       <guid isPermaLink="false">https://www.anthropic.com/research/team/alignment</guid>
       <category>Research</category>
-      <pubDate>Sun, 14 Jul 2024 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 13 May 2024 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Societal Impacts</title>
+      <link>https://www.anthropic.com/research/team/societal-impacts</link>
+      <description>Societal Impacts</description>
+      <guid isPermaLink="false">https://www.anthropic.com/research/team/societal-impacts</guid>
+      <category>Research</category>
+      <pubDate>Sun, 21 Apr 2024 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Interpretability</title>
@@ -132,7 +140,7 @@
       <description>Interpretability</description>
       <guid isPermaLink="false">https://www.anthropic.com/research/team/interpretability</guid>
       <category>Research</category>
-      <pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 19 Feb 2024 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>

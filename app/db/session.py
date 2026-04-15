@@ -50,7 +50,8 @@ def get_database_url() -> str:
     """
     Resolve DB URL in order:
 
-    1. ``DATABASE_URL`` if set (PostgreSQL URLs are normalized to ``postgresql+psycopg``).
+    1. ``DATABASE_URL`` if set (PostgreSQL URLs are normalized to ``postgresql+psycopg``;
+       SQLite ``sqlite:///...`` is passed through).
     2. Else, if ``POSTGRES_HOST`` is set, build from ``POSTGRES_USER``, ``POSTGRES_PASSWORD``,
        ``POSTGRES_PORT``, ``POSTGRES_DB``.
     3. Else default SQLite file ``data/aggregator.db``.

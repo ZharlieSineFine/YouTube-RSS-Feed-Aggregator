@@ -20,8 +20,10 @@ warnings.filterwarnings("ignore", message="Clashing formatting")
 
 try:
     from .cache import get_cached, set_cached
+    from .title_cleaner import clean_title
 except ImportError:
     from cache import get_cached, set_cached
+    from title_cleaner import clean_title
 
 
 class AnthropicFeedType(str, Enum):
@@ -151,7 +153,7 @@ class AnthropicScraper:
                 category = entry.tags[0].get('term', '')
             
             articles.append(AnthropicArticle(
-                title=entry.title,
+                title=clean_title(entry.title),
                 url=entry.link,
                 guid=entry.get('id', entry.link),
                 published_at=published_at,

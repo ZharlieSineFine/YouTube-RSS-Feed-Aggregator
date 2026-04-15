@@ -11,7 +11,29 @@ from sqlalchemy.orm import Session
 
 from app.db.models import Article, Source
 
-from .config import DIGEST_UI_LANGUAGE
+from .config import DIGEST_SINCE_STRICT_ROLLING, DIGEST_UI_LANGUAGE
+
+
+def _digest_published_at_cutoff(since_hours: float) -> datetime:
+    """
+    Lower bound for ``published_at`` (UTC) when filtering the digest.
+
+    By default uses the **earlier** of:
+
+    - ``now - since_hours`` (rolling window), and
+    - midnight at the **start of yesterday** in UTC
+
+    so articles stored as ``YYYY-MM-DDT00:00:00`` (common from scrapers) are not
+    excluded the morning after when ``DIGEST_SINCE_HOURS=24``. Set
+    ``DIGEST_SINCE_STRICT_ROLLING=1`` for a strict rolling window only.
+    """
+    now = datetime.now(timezone.utc)
+    rolling = now - timedelta(hours=since_hours)
+    if DIGEST_SINCE_STRICT_ROLLING:
+        return rolling
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    yesterday_start = today_start - timedelta(days=1)
+    return min(rolling, yesterday_start)
 
 
 def _escape_bold_segments(line: str) -> str:
@@ -110,6 +132,9 @@ def load_digest_items(
     """Return plain dicts (safe to use after the session closes).
 
     ``summary_locale`` ``en`` uses ``Article.summary``; ``zh-cn`` / ``zh`` uses ``Article.summary_zh``.
+
+    When ``since_hours`` is set, ``published_at`` uses :func:`_digest_published_at_cutoff`
+    unless ``DIGEST_SINCE_STRICT_ROLLING`` forces a plain rolling window.
     """
     sl = (summary_locale or "en").strip().lower()
     use_zh = sl in ("zh", "zh-cn", "zh_cn", "zh-hans", "zh_hans", "chinese", "cn")
@@ -123,7 +148,7 @@ def load_digest_items(
     else:
         q = q.where(Article.summary.isnot(None)).where(Article.summary != "")
     if since_hours is not None:
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=since_hours)
+        cutoff = _digest_published_at_cutoff(since_hours)
         q = q.where(
             (Article.published_at.isnot(None)) & (Article.published_at >= cutoff)
         )

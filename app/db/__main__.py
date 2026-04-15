@@ -6,7 +6,8 @@ import argparse
 from urllib.parse import urlparse, urlunparse
 
 from .queries import db_stats, recent_articles
-from .session import get_database_url, init_db
+from .session import get_database_url, init_db, session_scope
+from .models import Article
 
 
 def _sanitize_database_url(url: str) -> str:
@@ -32,6 +33,26 @@ def _sanitize_database_url(url: str) -> str:
     )
 
 
+def _clean_titles() -> int:
+    """Clean malformed titles in the database. Returns count of updated rows."""
+    from app.ingest.scrapers.title_cleaner import clean_title
+
+    init_db()
+    updated = 0
+
+    with session_scope() as session:
+        articles = session.query(Article).all()
+        for article in articles:
+            cleaned = clean_title(article.title)
+            if cleaned != article.title:
+                print(f"  {article.title[:60]}...")
+                print(f"    → {cleaned[:60]}...")
+                article.title = cleaned
+                updated += 1
+
+    return updated
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="News aggregator database: create tables and inspect contents.",
@@ -41,8 +62,8 @@ def main() -> None:
         "command",
         nargs="?",
         default="init",
-        choices=("init", "stats", "recent"),
-        help="init: create tables (default); stats: row counts; recent: list latest articles (add --summaries for full text)",
+        choices=("init", "stats", "recent", "clean-titles"),
+        help="init: create tables (default); stats: row counts; recent: list latest articles; clean-titles: fix malformed titles",
     )
     parser.add_argument(
         "-n",
@@ -67,6 +88,12 @@ def main() -> None:
         print("Schema ready (create_all).")
         print(f"  sources:  {stats['sources']}")
         print(f"  articles: {stats['articles']}")
+        return
+
+    if args.command == "clean-titles":
+        print("Cleaning malformed titles...")
+        count = _clean_titles()
+        print(f"Updated {count} article title(s).")
         return
 
     if args.command == "stats":

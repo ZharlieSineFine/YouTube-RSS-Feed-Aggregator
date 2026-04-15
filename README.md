@@ -13,7 +13,7 @@ It is a small end-to-end example of: web/RSS ingestion, caching, SQLAlchemy pers
    - **Anthropic** — RSS and article pages.
    - **OpenAI** — news listing and article pages.
 
-2. **Persist** — Upserts sources and articles into **SQLite** (default) or **PostgreSQL** (`DATABASE_URL` / `POSTGRES_*`).
+2. **Persist** — Upserts sources and articles into **SQLite** (default, `data/aggregator.db`) or **PostgreSQL** (`DATABASE_URL` / `POSTGRES_*`; optional [`docker/docker-compose.yml`](docker/docker-compose.yml) for local Postgres).
 
 3. **Summarize** — The **agent** fills `Article.summary` and optionally `Article.summary_zh` from `AGENT_SUMMARY_LANGUAGES` (default setup uses **Ollama** with a local model; **OpenAI** is optional).
 
@@ -49,7 +49,7 @@ More detail: [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md).
 |------|---------|
 | Language | Python 3.13+ |
 | Dependencies | `uv` + `pyproject.toml` |
-| ORM / DB | SQLAlchemy 2; SQLite default; PostgreSQL via psycopg |
+| ORM / DB | SQLAlchemy 2; SQLite default; PostgreSQL via psycopg optional |
 | Ingestion | `requests`, `feedparser`, BeautifulSoup; YouTube via `yt-dlp` |
 | LLM | OpenAI SDK-compatible API → **Ollama** (default) or **OpenAI** |
 | Email | `smtplib` (STARTTLS or SSL) |
@@ -60,17 +60,17 @@ Optional: `docker compose` in `docker/` for a local Postgres instance ([`docker/
 
 ## Quick start
 
-**Prerequisites:** [uv](https://github.com/astral-sh/uv), Git. For default summarization, [Ollama](https://ollama.com/) running locally with your chosen model (see `env.example`).
+**Prerequisites:** [uv](https://github.com/astral-sh/uv), Git. For default summarization, [Ollama](https://ollama.com/) locally (see `env.example`). For PostgreSQL instead of SQLite, use Docker or a hosted DB per [`docker/README.md`](docker/README.md).
 
 ```bash
 git clone <your-fork-or-repo-url>
 cd ai-news-aggregator-test
 uv sync
 cp env.example .env
-# Edit .env: database, Ollama or OpenAI, SMTP, digest recipients, optional DIGEST_SINCE_HOURS=24
+# Edit .env: optional DATABASE_URL; Ollama/OpenAI; SMTP; DIGEST_*; optional DIGEST_SINCE_HOURS=24
 ```
 
-Initialize the database if you use PostgreSQL (optional for first-time SQLite):
+Initialize the database schema (SQLite by default, or Postgres if configured):
 
 ```bash
 uv run python -m app.db init
@@ -98,9 +98,9 @@ uv run python -m app.daily
 
 ## Configuration notes
 
-- **`.env`** — Copy from `env.example`. Never commit secrets.
+- **`.env`** — Copy from `env.example`. Default database is **SQLite** under `data/`; set `DATABASE_URL` or `POSTGRES_*` for PostgreSQL. Never commit secrets.
 - **Incremental ingest** — Controlled in `app/ingest/config.py` (`INCREMENTAL_INGEST`, lookback hours). Deleting `.cache/ingest_state.json` resets “first run” behavior for watermarks.
-- **Digest window** — `DIGEST_SINCE_HOURS` (e.g. `24`) limits which articles appear in the email by publish time; align with how often you run the job.
+- **Digest window** — `DIGEST_SINCE_HOURS` (e.g. `24`) filters by `published_at` (UTC). By default the effective cutoff is the **earlier** of a rolling window and **midnight UTC at the start of yesterday**, so date-only timestamps are not skipped; set `DIGEST_SINCE_STRICT_ROLLING=1` for a strict rolling window only.
 - **Windows Task Scheduler** — [`docs/WINDOWS_SCHEDULER.md`](docs/WINDOWS_SCHEDULER.md) describes `scripts/run_daily_chain.ps1` and environment variables.
 
 ---

@@ -18,8 +18,10 @@ warnings.filterwarnings("ignore", message="Clashing formatting")
 
 try:
     from .cache import get_cached, set_cached
+    from .title_cleaner import clean_title
 except ImportError:
     from cache import get_cached, set_cached
+    from title_cleaner import clean_title
 
 
 class OpenAIArticle(BaseModel):
@@ -195,7 +197,7 @@ class OpenAINewsScraper:
                 continue
             
             articles.append(OpenAIArticle(
-                title=item['title'],
+                title=clean_title(item['title']),
                 url=item['url'],
                 published_at=published_at,
                 description=item.get('description', ''),

@@ -214,7 +214,7 @@ Key settings include `FETCH_LOOKBACK_HOURS`, `FIRST_RUN_LOOKBACK_HOURS`, `INCREM
 - `python -m app.digest preview` — print plain-text digest (no SMTP)
 - `python -m app.digest send` — email HTML + text via SMTP (`DIGEST_SMTP_*`, `DIGEST_EMAIL_FROM`, `DIGEST_EMAIL_TO`)
 - **Split inboxes:** `DIGEST_EMAIL_TO_EN` + `DIGEST_EMAIL_TO_ZH` — two sends: English body from `Article.summary`, Chinese from `Article.summary_zh` (subject/footer localized per send). Legacy single list: `DIGEST_EMAIL_TO` + optional `DIGEST_UI_LANGUAGE`.
-- Optional: `DIGEST_SINCE_HOURS`, `DIGEST_MAX_ARTICLES`, `DIGEST_SMTP_USE_SSL=1` for port 465
+- Optional: `DIGEST_SINCE_HOURS`, `DIGEST_SINCE_STRICT_ROLLING`, `DIGEST_MAX_ARTICLES`, `DIGEST_SMTP_USE_SSL=1` for port 465
 
 ### Scheduled runs (Windows)
 
