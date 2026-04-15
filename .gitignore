@@ -17,6 +17,9 @@ wheels/
 data/
 *.db
 
+# HTTP / ingest cache (large, machine-local)
+.cache/
+
 # Debug session / NDJSON traces (not source)
 debug-*.log
 .cursor/debug.log
