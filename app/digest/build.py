@@ -11,7 +11,11 @@ from sqlalchemy.orm import Session
 
 from app.db.models import Article, Source
 
-from .config import DIGEST_SINCE_STRICT_ROLLING, DIGEST_UI_LANGUAGE
+from .config import (
+    DIGEST_SINCE_STRICT_ROLLING,
+    DIGEST_SINCE_UTC_CALENDAR_DAYS,
+    DIGEST_UI_LANGUAGE,
+)
 
 
 def _digest_published_at_cutoff(since_hours: float) -> datetime:
@@ -21,19 +25,21 @@ def _digest_published_at_cutoff(since_hours: float) -> datetime:
     By default uses the **earlier** of:
 
     - ``now - since_hours`` (rolling window), and
-    - midnight at the **start of yesterday** in UTC
+    - midnight UTC at ``DIGEST_SINCE_UTC_CALENDAR_DAYS`` **full days** before today
+      (default 2, so the floor is start of the day before *yesterday* UTC, which
+      is more inclusive when local "yesterday" is still a prior UTC day).
 
-    so articles stored as ``YYYY-MM-DDT00:00:00`` (common from scrapers) are not
-    excluded the morning after when ``DIGEST_SINCE_HOURS=24``. Set
-    ``DIGEST_SINCE_STRICT_ROLLING=1`` for a strict rolling window only.
+    Set ``DIGEST_SINCE_STRICT_ROLLING=1`` for a strict rolling window only, or
+    ``DIGEST_SINCE_UTC_CALENDAR_DAYS=1`` to match the older "start of yesterday UTC" only.
     """
     now = datetime.now(timezone.utc)
     rolling = now - timedelta(hours=since_hours)
     if DIGEST_SINCE_STRICT_ROLLING:
         return rolling
+    days = max(1, int(DIGEST_SINCE_UTC_CALENDAR_DAYS or 1))
     today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
-    yesterday_start = today_start - timedelta(days=1)
-    return min(rolling, yesterday_start)
+    calendar_floor = today_start - timedelta(days=days)
+    return min(rolling, calendar_floor)
 
 
 def _escape_bold_segments(line: str) -> str:

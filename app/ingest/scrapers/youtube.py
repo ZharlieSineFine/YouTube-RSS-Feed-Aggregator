@@ -1,6 +1,7 @@
 """YouTube channel scraper for fetching videos and transcripts."""
 
 import json
+import os
 import re
 from datetime import datetime, timedelta, timezone
 from typing import List, Dict, Optional
@@ -14,6 +15,38 @@ try:
     from .cache import get_cached, read_cached_ignore_ttl, set_cached
 except ImportError:
     from cache import get_cached, read_cached_ignore_ttl, set_cached
+
+
+# Public Invidious / Piped / RSSHub instances that mirror YouTube's channel RSS
+# feed when YouTube itself 404s / blocks the host IP. These are community-run;
+# any given instance may be slow, down, or rate-limiting, and the full list of
+# healthy instances changes monthly. The fetcher tries them in order and falls
+# back to the next on any non-XML or error response.
+#
+# Override with ``YOUTUBE_RSS_MIRRORS`` env var — comma-separated list of URL
+# templates containing ``{id}`` as the placeholder for the channel id. A
+# current list of instances can be found at:
+#   Invidious: https://docs.invidious.io/instances/
+#   Piped:     https://github.com/TeamPiped/Piped/wiki/Instances
+#   RSSHub:    https://docs.rsshub.app/guide/instances
+#
+# Example:
+#   YOUTUBE_RSS_MIRRORS="https://yewtu.be/feed/channel/{id},https://invidious.nerdvpn.de/feed/channel/{id}"
+_DEFAULT_RSS_MIRRORS: tuple[str, ...] = (
+    "https://yewtu.be/feed/channel/{id}",
+    "https://invidious.nerdvpn.de/feed/channel/{id}",
+    "https://inv.nadeko.net/feed/channel/{id}",
+    "https://invidious.materialio.us/feed/channel/{id}",
+    "https://rsshub.app/youtube/channel/{id}",
+)
+
+
+def _rss_mirror_templates() -> tuple[str, ...]:
+    raw = os.environ.get("YOUTUBE_RSS_MIRRORS", "").strip()
+    if not raw:
+        return _DEFAULT_RSS_MIRRORS
+    parts = tuple(p.strip() for p in raw.split(",") if p.strip() and "{id}" in p)
+    return parts or _DEFAULT_RSS_MIRRORS
 
 
 class ChannelVideo(BaseModel):
@@ -92,6 +125,49 @@ class YouTubeScraper:
         """
         return f"https://www.youtube.com/feeds/videos.xml?channel_id={channel_id}"
     
+    # Browser-like UA; YouTube sometimes 404s default python-requests.
+    _RSS_HEADERS = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8",
+    }
+
+    @staticmethod
+    def _looks_like_youtube_feed(text: str) -> bool:
+        """
+        Minimal sanity check — a YouTube/Invidious/Piped channel feed always contains
+        ``<yt:channelId>`` (YouTube namespace is preserved by all mirrors).
+        """
+        if not text:
+            return False
+        snippet = text[:2048].lower()
+        if "<!doctype html" in snippet or "<html" in snippet:
+            return False
+        return ("yt:channelid" in snippet) or ("<feed" in snippet and "<entry" in text[:4096].lower())
+
+    def _try_fetch_feed(self, url: str, label: str) -> Optional[str]:
+        """Try to fetch ``url`` and return the text if it looks like a valid channel feed."""
+        try:
+            response = requests.get(url, timeout=30, headers=self._RSS_HEADERS)
+        except requests.RequestException as e:
+            print(f"  [YouTube RSS via {label}] error: {e}")
+            return None
+
+        status = response.status_code
+        text = response.text or ""
+        if status == 200 and self._looks_like_youtube_feed(text):
+            return text
+
+        body_snippet = text[:120].replace("\n", " ")
+        print(
+            f"  [YouTube RSS via {label}] unusable response "
+            f"(status={status}, {len(text)} bytes): {body_snippet}"
+        )
+        return None
+
     def fetch_channel_videos(
         self, 
         channel_id: str, 
@@ -99,6 +175,12 @@ class YouTubeScraper:
     ) -> List[ChannelVideo]:
         """
         Fetch latest videos from a YouTube channel via RSS feed.
+
+        Strategy (each step falls through on failure):
+          1. Fresh cache (TTL respected).
+          2. YouTube's own RSS feed.
+          3. Community mirrors (Invidious / Piped). Configure via YOUTUBE_RSS_MIRRORS.
+          4. Stale cache (past TTL, better than nothing).
         
         Args:
             channel_id: YouTube channel ID
@@ -108,18 +190,47 @@ class YouTubeScraper:
             List of ChannelVideo models
         """
         rss_url = self.build_rss_url(channel_id)
-        
-        # Check cache first
-        cached_content = get_cached(rss_url, "xml")
-        if cached_content:
-            feed = feedparser.parse(cached_content)
-        else:
-            # Fetch and cache
-            response = requests.get(rss_url, timeout=30)
-            response.raise_for_status()
-            set_cached(rss_url, response.text, "xml")
-            feed = feedparser.parse(response.text)
-        
+
+        # 1. Fresh cache (respects TTL).
+        feed_text: Optional[str] = get_cached(rss_url, "xml")
+
+        # 2. YouTube directly.
+        if feed_text is None:
+            feed_text = self._try_fetch_feed(rss_url, "YouTube")
+            if feed_text is not None:
+                set_cached(rss_url, feed_text, "xml")
+
+        # 3. Mirrors (Invidious / Piped).
+        if feed_text is None:
+            for template in _rss_mirror_templates():
+                mirror_url = template.format(id=channel_id)
+                label = mirror_url.split("/")[2] if "://" in mirror_url else mirror_url
+                mirror_text = self._try_fetch_feed(mirror_url, label)
+                if mirror_text is not None:
+                    print(f"  [YouTube RSS] using mirror {label} for {channel_id}")
+                    # Cache under the canonical URL so subsequent cache hits are transparent.
+                    set_cached(rss_url, mirror_text, "xml")
+                    feed_text = mirror_text
+                    break
+
+        # 4. Stale cache last resort.
+        if feed_text is None:
+            stale = read_cached_ignore_ttl(rss_url, "xml")
+            if stale:
+                print(
+                    f"  [YouTube RSS] all live sources failed; "
+                    f"using stale cached feed for {channel_id}"
+                )
+                feed_text = stale
+
+        if feed_text is None:
+            raise RuntimeError(
+                f"Could not fetch YouTube channel feed for {channel_id} "
+                f"(YouTube + all mirrors failed, and no cache available)."
+            )
+
+        feed = feedparser.parse(feed_text)
+
         if feed.bozo:
             raise ValueError(f"Failed to parse RSS feed: {feed.bozo_exception}")
         

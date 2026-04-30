@@ -53,11 +53,16 @@ DIGEST_EMAIL_TO_ZH = os.environ.get("DIGEST_EMAIL_TO_ZH", "").strip()
 # Max articles in one email (newest with a summary first).
 DIGEST_MAX_ARTICLES = _int("DIGEST_MAX_ARTICLES", 50)
 # If set, only include rows with published_at within the last N hours (UTC),
-# optionally floored to start of yesterday UTC (see DIGEST_SINCE_STRICT_ROLLING).
+# optionally floored to a UTC midnight (see DIGEST_SINCE_UTC_CALENDAR_DAYS, DIGEST_SINCE_STRICT_ROLLING).
 DIGEST_SINCE_HOURS = _float_opt("DIGEST_SINCE_HOURS")
-# If false (default): effective cutoff is min(now - N hours, start of yesterday UTC) so
-# date-only midnight timestamps are not dropped from the digest. If true: strict rolling window only.
+# If false (default): effective cutoff is min(now - N hours, UTC midnight *calendar_floor*) so
+# date-only midnight timestamps and "yesterday" across time zones are not dropped. If true: strict
+# rolling window only.
 DIGEST_SINCE_STRICT_ROLLING = _env_bool("DIGEST_SINCE_STRICT_ROLLING", False)
+# How many full UTC days back the non-strict floor can reach (1 = from start of *yesterday* UTC; 2 = from
+# start of *two* UTC days ago). Default 2 reduces misses when the digest run is a calendar "day" off
+# from `published_at` in UTC.
+DIGEST_SINCE_UTC_CALENDAR_DAYS = max(1, _int("DIGEST_SINCE_UTC_CALENDAR_DAYS", 2))
 
 # Email chrome (subject prefix, footer): "en" default, or "zh-cn" / "zh-hans" / "chinese" for Simplified Chinese strings.
 DIGEST_UI_LANGUAGE = os.environ.get("DIGEST_UI_LANGUAGE", "").strip().lower()

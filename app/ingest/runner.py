@@ -78,22 +78,51 @@ def fetch_youtube(
     now = datetime.now(timezone.utc)
     new_by_channel: Dict[str, List[ChannelVideo]] = {ch: [] for ch in channel_ids}
 
+    seen_in_db: set[str] = set()
+    if incremental and state is not None:
+        try:
+            from app.db.queries import youtube_video_ids_in_db
+            from app.db.session import init_db, session_scope
+
+            init_db()
+            with session_scope() as s:
+                seen_in_db = youtube_video_ids_in_db(s)
+        except Exception as e:
+            print(f"  (warn) could not load YouTube ids from DB for incremental de-dup: {e}")
+
     for channel_id in channel_ids:
         print(f"\n[YouTube] Fetching: {channel_id}...")
         try:
             raw = scraper.scrape_channel(channel_id, hours_back=hours_back)
             if incremental and state is not None:
                 wm = parse_iso((state.get("youtube") or {}).get(channel_id))
-                new = filter_incremental_published(
+                time_new = filter_incremental_published(
                     raw,
                     lambda v: v.published_at,
                     wm,
                     now,
                     FIRST_RUN_LOOKBACK_HOURS,
                 )
+                # RSS can list an older video after we advanced the watermark; never skip
+                # a feed item we have not persisted yet.
+                unseen = [v for v in raw if v.video_id not in seen_in_db]
+                by_vid: dict[str, ChannelVideo] = {}
+                for v in time_new + unseen:
+                    by_vid[v.video_id] = v
+                new = list(by_vid.values())
+                for v in new:
+                    seen_in_db.add(v.video_id)
                 new_by_channel[channel_id] = new
                 all_videos.extend(new)
-                print(f"  {len(new)} new since last run (of {len(raw)} in feed window)")
+                time_ids = {v.video_id for v in time_new}
+                n_rescued = sum(1 for v in new if v.video_id not in time_ids)
+                if n_rescued > 0:
+                    print(
+                        f"  {len(new)} to process (of {len(raw)} in feed window) "
+                        f"— {n_rescued} not in DB yet (older than watermark; would have been skipped)"
+                    )
+                else:
+                    print(f"  {len(new)} new since last run (of {len(raw)} in feed window)")
             else:
                 all_videos.extend(raw)
                 print(f"  Found {len(raw)} videos")

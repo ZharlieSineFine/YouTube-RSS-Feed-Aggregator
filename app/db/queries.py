@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Any, Dict, List
+import json
+import re
+from typing import Any, Dict, List, Set
 
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
@@ -60,3 +62,35 @@ def recent_articles(limit: int = 20) -> List[Dict[str, Any]]:
                 }
             )
         return out
+
+
+def youtube_video_ids_in_db(session: Session) -> Set[str]:
+    """
+    YouTube video IDs we already have rows for (from ``extra_json`` or parsed ``url``).
+
+    Used to avoid missing late-appearing RSS items whose ``published_at`` is before
+    the per-channel incremental watermark.
+    """
+    ids: set[str] = set()
+    stmt = (
+        select(Article.url, Article.extra_json)
+        .join(Source, Article.source_id == Source.id)
+        .where(Source.kind == "youtube")
+    )
+    for url, extra in session.execute(stmt).all():
+        vid: str | None = None
+        if extra:
+            try:
+                d = json.loads(extra)
+                v = d.get("video_id")
+                if isinstance(v, str) and len(v) == 11:
+                    vid = v
+            except (json.JSONDecodeError, TypeError, AttributeError):
+                pass
+        if not vid and url:
+            m = re.search(r"(?:[?&]v=|youtu\.be/)([a-zA-Z0-9_-]{11})", url)
+            if m:
+                vid = m.group(1)
+        if vid:
+            ids.add(vid)
+    return ids
