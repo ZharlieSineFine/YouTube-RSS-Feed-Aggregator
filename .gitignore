@@ -24,5 +24,8 @@ data/
 debug-*.log
 .cursor/debug.log
 
+# Cursor agent worktrees / internal Cursor state
+.claude/
+
 # Pause scheduled runs without changing Task Scheduler (see docs/WINDOWS_SCHEDULER.md)
 schedule_disabled
