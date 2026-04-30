@@ -1,13 +1,10 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../ai-news-aggregator"
-		}
-	],
-	"settings": {
-		"ndjson.port": 2048
-	}
+  "folders": [
+    {
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "ndjson.port": 2048,
+  },
 }
