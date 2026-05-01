@@ -310,6 +310,9 @@ class YouTubeScraper:
                 'skip_download': True,
                 'quiet': True,
                 'no_warnings': True,
+                # Fail fast on 403/blocked — default retries=10 stalls for minutes per video.
+                'retries': 1,
+                'fragment_retries': 1,
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
