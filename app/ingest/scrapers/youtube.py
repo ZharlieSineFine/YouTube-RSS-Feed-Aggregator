@@ -249,13 +249,17 @@ class YouTubeScraper:
             if published_time < cutoff_time:
                 continue
             
-            video_id = self.extract_video_id(entry.link)
+            # Prefer the <yt:videoId> field — mirrors (Invidious/Piped) rewrite
+            # entry.link to their own domain, which breaks extract_video_id.
+            video_id = entry.get("yt_videoid") or self.extract_video_id(entry.link)
             if not video_id:
                 continue
-            
+
+            canonical_url = f"https://www.youtube.com/watch?v={video_id}"
+
             videos.append(ChannelVideo(
                 title=entry.title,
-                url=entry.link,
+                url=canonical_url,
                 video_id=video_id,
                 published_at=published_time,
                 description=getattr(entry, 'description', ''),
